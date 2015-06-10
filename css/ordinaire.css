@@ -1,0 +1,382 @@
+/* tonalité générale : bleu-vert  */
+
+/* chargement de la police préférée d'AS */
+
+@font-face {
+	font-family: 'URW_Gothic' ; 
+	src: url('../font/urw-gothic-l-book.ttf'); 
+	src: local('x'),
+         url('../font/urw-gothic-l-book.ttf') format('TrueType');
+}
+
+/* le body*/
+body {
+	background-color:#ffffff ;
+	font-family: URW_Gothic, Open Sans, sans-serif; 
+}
+
+#mainConteneur {
+	/*background-color:#E1E6FA ;*/
+	background-color:#ffffff;
+	max-width:1100px;
+	padding:25px ;
+	padding-bottom:20px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.information {
+	padding-top:15px ;
+	padding-bottom:15px ;
+	font-size:medium;
+	text-align:justify;
+}
+
+.errormessage {
+	padding-top:10px;
+	padding-bottom:10px;
+	color:#B9121B;
+	font-weight:bold;
+	display:none;
+}
+
+.infomessage {
+	padding-top:10px;
+	padding-bottom:10px;
+	color:#556627;
+	font-weight:bold;
+	display:none;
+}
+
+h1 {
+	color:#2f892a;
+	padding-top:35px;
+	border-bottom:1px dotted;
+	font-size:xx-large;
+}
+
+h2 {
+	color:#2D8203;
+	margin-top:30px;
+	margin-bottom:20px;
+	border-bottom:1px dotted;
+	font-size:x-large;
+}
+
+h3 {
+	color:#25A32D;
+	font-size:large;
+	border-bottom:1px dotted;
+	margin-top:60px;
+	text-transform: uppercase;
+}
+
+h4 {
+	color:#25A32D;
+	font-size:normal;
+}
+
+.fchamp {
+	padding: 5px;
+	padding-left: 305px;
+}
+
+label.left{
+	float: left;
+	margin-left: -305px;
+	font-weight:bold;
+}
+
+.fboutton {
+	padding: 5px;
+	padding-left: 305px;
+}
+
+input {
+	width:300px;
+}
+
+.rightbutton {
+	width:307px;
+}
+
+/*menu haut */
+
+#menuhaut {
+	position:absolute;
+	top:0px ;
+	right:0px ;
+}
+
+.menu {
+	display:inline;
+	margin:20px ;
+	font:large;
+	color:#2B7A22;
+	cursor:Pointer;
+}
+
+.admin {
+	display:none ;
+}
+.menu > a {
+	text-decoration:none ;
+	color:#2B7A22 ;
+}
+
+/* champs à masquer ou montrer au début */
+
+#nonauthentifie {
+	display:block ;
+}
+
+#tentativeinscription {
+	display:none ;
+}
+
+#authentifie {
+	display:none;
+	position:relative ;
+}
+
+.partie {
+	display:none ;
+}
+
+
+/* les messages du mur */
+
+.message {
+	border-width:1px;
+	border-color:#2f892a;
+	border-style:dotted;
+	margin-top:20px ;
+	margin-bottom:20px ;
+	background-color:#F2F2F2;
+}
+
+.message:hover{
+	background-color:#E6E6E6;
+}
+
+.messageTete {
+	padding:10px;
+	font-weight:bold;
+}
+
+.messageCorps {
+	padding:10px;
+	font-weight:normal ;
+	text-align:justify;
+}
+
+
+/* bas du site */
+
+.bottom {
+	padding:10px ;
+	text-align:center ;
+	font-size:small;
+}
+
+.link {
+	color:#2f892a;
+	text-decoration:underline;
+	cursor:Pointer;
+}
+
+.link :hover {
+	background-color: yellow;
+	color:#B9121B;
+	text-decoration:underline;
+	cursor:Pointer;
+}
+
+/* formulaires */
+
+fieldset {
+	padding:10px;
+	margin-bottom:10px ;
+	margin-top:10px ;
+}
+
+/* informations */
+
+.informationB {
+	border:solid ;
+	border-width:1px;
+	padding:10px;
+	font-size:large;
+	text-align:justify;
+	margin-top:15px;
+	margin-bottom:15px;
+}
+
+.informationBtitre {
+	color:#2f892a;
+	font-weight:bold;
+}
+
+.informationRed {
+	color:red ;
+	font-weight:bold;
+}
+
+/* familles */
+
+.famille {
+	font-weight:bold;
+	margin-top:15px;
+}
+
+.fjm {
+	color:#663300 ;
+}
+
+.fr {
+	color:red;
+}
+
+.fg {
+	color:#000099 ;
+}
+
+.fm {
+	color:#009900;
+}
+
+.fhenri {
+	color:#FF6600 ;
+}
+
+.fhelene {
+	color:#6600CC ;
+}
+
+.l1 {
+	padding-left:50px;
+}
+
+.l2 {
+	padding-left:75px;
+}
+
+/* pour la carte */
+span.generation1 {
+	text-decoration: underline
+}
+span.generation2{
+	font-weight: 900 
+}
+span.generation3{}
+span.generation4{
+	font-style: italic
+}
+.boite {
+	width:1200px ;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+/* tableaux */
+
+table {
+	border-style:solid ;
+	border-collapse: collapse;
+    border-color: gray;
+	border-width:thin;
+}
+
+th {
+	background-color:#2f892a;
+	color:#ffffff;
+	font-weight:bold ;
+	text-align:center ;
+	min-width:100px ;
+}
+
+/* administration */
+
+.adminTopic {
+	display:none;
+}
+
+/* photos */
+
+.album > table {
+	border-style:none ;
+
+}
+
+#albumPhotographique {
+	position: fixed;
+	background-color:#000000 ;
+	color:#ffffff;
+	top:80px;
+	left:0px;
+	width:100%;
+	height:80%;
+	display:none ;
+}
+
+#photographie {
+	max-width:1200px;
+	padding:25px ;
+	padding-bottom:20px;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+#laPhoto {
+	display: block;
+	width:800px;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+#photoPrec {
+	cursor:Pointer;
+}
+
+#photoSuiv {
+ 	cursor:Pointer;
+}
+
+#closeAlbum {
+	position:absolute;
+	right:0px;
+	bottom:0px ;
+}
+
+/* uploader de photos */
+
+.container {
+    overflow:hidden;
+    margin:20px auto;
+}
+
+.dropArea {
+    background-color: #DDDDDD;
+    border: 3px dashed #000000;
+    font-size: 24px;
+    font-weight: bold;
+    height: 280px;
+    margin: 20px;
+    text-align: center;
+	width:280px;
+}
+#dropArea.hover {
+    background-color: #CCCCCC;
+}
+#dropArea.uploading {
+    background-color: #EEEEEE;
+}
+
+
+/* généalogie */
+
+#arbre_genealogique {
+	width:1100px;
+}

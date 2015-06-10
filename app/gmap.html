@@ -1,0 +1,252 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<title>Carte de la famille Brier</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="../css/ordinaire.css" media="screen and (min-width: 720px)" />
+<link rel="icon" type="image/png" href="http://www.steppe.fr/images/cavaliermongol.png" />
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script>
+function initialize() {
+	var famille2 = [
+		{"Nom":"Bruxelles",
+		"Position": new google.maps.LatLng(50.850, 4.351),
+		"Carte":0,
+		"Personnes":[
+			[1, "Jean-François et Antoinette", 2],
+			[1, "Claire et Hervé Crespel", 2],
+			[1, "Quentin Crespel", 3],		
+			[3, "Alain et Laurence de Becker", 2],
+			[3, "Félixe", 3],
+			[3, "Alexandre", 3],
+			[3, "Blandine", 3],
+			[3, "Ombeline", 3],
+			[3, "Bruno de Becker et Liliane Augarde", 2],
+			[3, "Laurie Massaux et Mehdi", 3],
+			[3, "Brigitte de Becker", 2],
+			[3, "Justin d'Anethan", 3],
+			[4, "Pascale", 2],
+			[4, "Charles et Stéphanie", 3, "Alix", 4]
+		]},
+		{"Nom":"Huy",
+		"Position": new google.maps.LatLng(50.517993, 5.235725),
+		"Carte":0,
+		"Personnes":[[1, "Maxime et Mélanie", 3, "Antonin, Arthur, Baptiste", 4]]},
+		{"Nom":"Lille",
+		"Position": new google.maps.LatLng(50.629, 3.0572),
+		"Carte":1,
+		"Personnes": [
+			[2, "Anne-Sophie et Matthieu Duclos", 3],
+			[2, "Gaëtan et Marie-Laure", 3]
+		]
+		},
+		{"Nom":"Paris",
+		"Position":new google.maps.LatLng(48.856, 2.35),
+		"Carte":1,
+		"Personnes": [
+			[2, "Christian et Blandine", 2, "Elvire et Adrienne", 3],
+			[0, "Amaury d'Everlange et Alexandra de La Veyssière", 3]
+		]
+		},
+		{"Nom":"Arcachon",
+		"Position":new google.maps.LatLng(44.652,-1.178),
+		"Carte":1,
+		"Personnes": [
+			[2, "Christiane", 1],
+			[2, "Marie-Christine", 2, "Tristan", 3]
+		]},
+		
+		{"Nom":"Montpellier",
+		"Position": new google.maps.LatLng(43.6100,3.876),
+		"Carte":2,
+		"Personnes":[[1, "Fabrice et Rachelle De Clerck", 3, "Camden et Chloë", 4]]},
+		{"Nom":"Avignon",
+		"Position": new google.maps.LatLng(43.949,4.805),
+		"Carte":2,
+		"Personnes":[[2, "Henrik", 3]]},
+		{"Nom":"L'Isle-sur-la-Sorgue",
+		"Position": new google.maps.LatLng(43.914,5.057),
+		"Carte":2,
+		"Personnes":[[2, "Charles et Béatrice", 2]]},
+		{"Nom":"Uzès",
+		"Position": new google.maps.LatLng(44.012,4.419),
+		"Carte":2,
+		"Personnes":[[0, "Chantal et Jacques d'Everlange", 2]]},
+		{"Nom":"Peygné",
+		"Position":new google.maps.LatLng(43.447,5.641),
+		"Carte":2,
+		"Personnes":[[2, "Florence et Florent Cassagne", 3, "Gabriel et Alban", 4]]},
+		{"Nom":"Marseille",
+		"Position":new google.maps.LatLng(43.299,5.390),
+		"Carte":2,
+		"Personnes":[[2, "Gratiane",3]]},
+		{"Nom":"Gap",
+		"Carte":1,
+		"Position":new google.maps.LatLng(44.5596,6.079),
+		"Personnes": [
+			[2, "Thierry et Christine", 2],
+			[2, "Amélie et Matthieu Magnin", 3]]},
+		{"Nom":"Lyon",
+		"Carte":1,
+		"Position":new google.maps.LatLng(45.764,4.835),
+		"Personnes" : [[2, "Elise", 3]]},
+		{"Nom":"Sienne",
+		"Carte":1,
+		"Position":new google.maps.LatLng(43.318549, 11.331442),
+		"Personnes" : [[3, "Rose et Giuseppe Clerici Bagozzi", 3, "Apolline et Georgina", 4]]},
+		{"Nom":"Los Angeles",
+		"Carte":3,
+		"Position":new google.maps.LatLng(36.778,-119.417),
+		"Personnes":[
+			[1, "Dominique et Yves De Clerck", 2],
+			[1, "Sébastien et Tania De Clerck", 3, "Naomi, Yves, Adrienne", 4],
+			[1, "Matthieu et Britt De Clerck", 3, "Lily, Mason", 4],
+			[1, "Thomas De Clerck", 3]]},
+		{"Nom":"Washington DC",
+		"Carte":3,
+		"Position":new google.maps.LatLng(38.9071920,-77.0368710),
+		"Personnes":[
+			[1, "Guillaume et Kate", 3],
+			[5, "Michelle Coupland", 2],
+			[5, "Richard Coupland", 2]]},
+		{"Nom":"Texas",
+		"Carte":3,
+		"Position":new google.maps.LatLng(31.9685990,-99.9018130),
+		"Personnes":[
+			[1, "Myriam et Pete Russel", 2],
+			[1, "Zoé", 4]]}
+	] ;
+	
+	var mefo = ["", "<u>", "<b>", "", "<i>"] ;
+	var meff = ["", "</u>", "</b>", "", "</i>"] ;
+		
+	var famille = [
+		[1, "Sébastien De Clerck", 34.052, -118.243, 2],
+		[2, "Anne-Sophie, Gaétan", 50.629, 3.0572, 1],
+		[2, "Charles", 43.914, 5.057, 1],
+		[2, "Thierry", 44.559, 6.079, 1],
+		[2, "Christian", 48.856, 2.352, 1],
+		[4, "Charles", 50.850, 4.351, 0]
+	] ;
+
+	var cartes = [] ; 
+	var centres = [
+		new google.maps.LatLng(50.850, 4.351), 
+		new google.maps.LatLng(45.777, 3.087), 
+		new google.maps.LatLng(43.8072350,4.6442690),
+		new google.maps.LatLng(41.252, -95.997)] ;	//Bruxelles, Clermont-Ferrand, Beaucaire, Omaha
+	
+	var couleurs = ["#663300", "red", "#000099", "#009900", "FF6600", "#6600CC"] ;	
+	//0 - Marron : Renée
+	//1 - Rouge : Robert
+	//2 - Bleu : Ghislain
+	//3 - Vert : Mithy
+	//4 - Orange : Henri
+	//5 - Violet : Hélène
+	
+	geocoder = new google.maps.Geocoder() ;
+	
+	var mapProp = {
+		'center':centres[0],
+		'zoom':8,
+		'mapTypeId':google.maps.MapTypeId.ROADMAP,
+		disableDefaultUI: true,
+		'mapTypeControl':false,
+		'overviewMapControl':false} ;
+	cartes[0] = new google.maps.Map(document.getElementById("Belgique"), mapProp) ;
+	//France
+	mapProp.zoom = 6 ;
+	mapProp.center = centres[1] ;
+	cartes[1] = new google.maps.Map(document.getElementById("France"), mapProp) ;
+	//Sud-est de la France
+	mapProp.zoom = 9 ;
+	mapProp.center = centres[2] ;
+	cartes[2] = new google.maps.Map(document.getElementById("FranceSE"), mapProp) ;
+	//USA
+	mapProp.zoom = 4 ;
+	mapProp.center = centres[3] ;
+	cartes[3] = new google.maps.Map(document.getElementById("Etats-Unis"), mapProp) ;
+	
+	//carte du monde
+	mapProp.zoom = 3 ;
+	mapProp.center = new google.maps.LatLng(57.7127562,-44.3847656) ;	//un coin vers le Groenland
+	cartemonde = new google.maps.Map(document.getElementById("Monde"), mapProp) ;
+	
+	for (var i = 0 ; i < famille2.length ; i++) {
+		var personnes = famille2[i].Personnes ;
+		var string = "" ;
+		var couleur = 0 ; //au départ, couleur n'a pas de valeur donnée. C'est le marqueur de la couleur en cours.
+			
+		for (var j = 0 ; j < personnes.length ; j++) {
+			console.log(personnes[j]); 
+			var personne = personnes[j] ;
+			var c = couleurs[personne[0]] ;	
+			if (c != couleur) {
+				if (couleur != 0) {	//on change de couleur : il faut donc fermer la balise font
+					string = string + "</font>" ;
+				}
+				string = string + "<font color='" + c + "'>" ;	//on met un nouvelle balise font avec la nouvelle couleur
+				couleur = c;	//on change le marqueur de couleur
+			}
+			string += '<div>' + mefo[personne[2]] + personne[1] + meff[personne[2]] ;
+			if (personne.length > 3) {
+				string += ', ' + mefo[personne[4]] + personne[3] + meff[personne[4]] ;
+			}
+			string += '</div>' ;
+		}
+		string = string + "</font>" ;
+		infowindow = new google.maps.InfoWindow(
+			{'content':string, 
+			"position":famille2[i].Position}) ;
+		infowindow.open(cartes[famille2[i].Carte]) ;
+		infowindow2 = new google.maps.InfoWindow(
+			{'content':string, 
+			"position":famille2[i].Position}) ;
+		infowindow2.open(cartemonde) ;
+		console.log("Lieu " + famille2[i].Nom + " fini.") ;
+	}
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+</head>
+
+<body>
+<div id="mainConteneur">
+	<h1>La famille d'Edouard et Gabrielle à travers le monde</h1>
+	<div class="information">
+		<div>Vous trouverez à travers la carte différentes informations :</div>
+		<div>- chaque famille a une couleur : <span class="fjm">Renée</span>, <span class="fr">Robert</span>, <span class="fg">Ghislain</span>, <span class="fm">Mithy</span>, <span class="fhenri">Henri</span>, <span class="fhelene">Hélène</span></div>
+		<div>- chaque génération a un style différent : <span class="generation1">belle-fille d'Edouard et Gabrielle</span>, <span class="generation2">petits-enfants (+ conjoints)</span>, <span class="generation3">arrière-petits-enfants</span> et <span class="generation4">arrière-arrière petits-enfants !</span>	</div>
+		<div>- chaque "foyer" est indiqué sur une même ligne</div>
+		<div>- le nom "de Brier" n'est pas précisé, pour alléger la carte ; les autres noms sont mentionnés.</div>
+	</div>
+	
+	<div class="boite">
+		<h2>Monde</h2>
+		<div id="Monde" style="width:1200px;height:900px;"></div>
+	<div>
+
+	<div class="boite">
+		<h2>Belgique</h2>
+		<div id="Belgique" style="width:1200px;height:900px;"></div>
+	<div>	
+
+	<div class="boite">
+		<h2>France et Italie</h2>
+		<div id="France" style="width:1200px;height:900px;"></div>
+	<div>
+
+	<div class="boite">
+		<h2>France, Sud-Est</h2>
+		<div id="FranceSE" style="width:1200px;height:900px;"></div>
+	<div>
+		
+	<div class="boite">
+		<h2>Etats-Unis</h2>
+		<div id="Etats-Unis" style="width:1200px;height:900px;"></div>
+	<div>
+	
+	<div class="bottom"><a href="index.html" class="link" id="mainPage">Revenir sur la page principale</a></div>
+</div>
+</body>
+</html> 

@@ -1,0 +1,4 @@
+v.0.3 - 4.6.2015
+* séparation entre index.html et wall.html : index s'occupe de la connexion, wall de l'affichage du mur. La personne est stockée dans localStorage, avec son mot de passe. Chaque appel à index.html conduit à une vérification de l'identité.
+* on enregistre désormais la date de dernière connexion de chaque personne.
+* ajouts et améliorations dans la page d'administration : possibilité de refuser un nouvel utilisateur, ajout des messages, possibilité de les effacer.
