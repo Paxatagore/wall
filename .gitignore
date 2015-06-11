@@ -45,6 +45,7 @@ Temporary Items
 #==========================
 # fichiers à ignorer 
 #==========================
+adminSession
 /font
 /img
 /local
