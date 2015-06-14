@@ -83,9 +83,9 @@ var wall = {
 			"onSuccess": function(requester) {
 				console.log("Le serveur a répondu.") ;
 				var string = [] ;
-				var json = requester.responseJSON ;
+				json = requester.responseJSON ;
 				for (var i = 0 ; i < json.lenen ; i++) {
-					string.push(wall.traiteMessage(json.message[i])) ;
+					string.push(wall.traiteMessage(json.messages[i])) ;
 				}
 				$('lemur').innerHTML = string.join("") ;
 				console.log("Le résultat a été affiché.") ;
@@ -100,7 +100,9 @@ var wall = {
 		var dd2 = dd.split("-") ;
 		var h = d[1] ;
 		var h2 = h.split(":") ;
-		if (dd == "2015-05-01") return '<div id="message_' + m.num + '" class="message"><div class="messageCorps">' + m.texte + '</div></div>' ;
+		var texte = m.texte.split("\n") ;
+		texte = texte.join("<br/>") ;
+		if (dd == "2015-05-01") return '<div id="message_' + m.num + '" class="message"><div class="messageCorps">' + texte + '</div></div>' ;
 		else return '<div id="message_' + m.num + '" class="message"><div class="messageTete">Le ' + dd2[2] + " " + wallApp.mois[eval(dd2[1])] + " " + dd2[0] + ' à ' + h2[0] + 'h' + h2[1] + ', <a href="mailto:' + m.mail + '">' + m.auteur + '</a> a posté le message suivant :</div><div class="messageCorps">' + m.texte + '</div></div>' ;
 	},
 	

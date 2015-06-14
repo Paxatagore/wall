@@ -18,7 +18,7 @@ if ($res) {
 	while ($m = $req->fetchObject("message")) {
 		$ojson[] = $m->json() ;
 	}
-	$json = '{"status":1, "lenen":'.$req->rowCount().', "message" : ['.implode(", ", $ojson).']}' ;
+	$json = '{"status":1, "lenen":'.$req->rowCount().', "messages" : ['.implode(", ", $ojson).']}' ;
 }
 else {
 	$json = '{"status":-1}' ;
