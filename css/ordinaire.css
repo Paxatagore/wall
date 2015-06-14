@@ -343,6 +343,12 @@ th {
  	cursor:Pointer;
 }
 
+#nomPhoto {
+	position:absolute;
+	top:0px;
+	left:0px ;
+}
+
 #closeAlbum {
 	position:absolute;
 	right:0px;

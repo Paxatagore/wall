@@ -276,7 +276,7 @@ var wall = {
 			var k = 0 ;
 			for (var j = 0 ; j < gphotos.length ; j++) {
 				if (!k) string.push('<tr>') ;
-				string.push('<td><img src="../photos/' + g + "/miniatures/" + gphotos[j] + '" alt="" onClick="javascript:wall.afficheUnePhoto(' + i + ', ' + j + ')"></td>') ;
+				string.push('<td><img src="../photos/' + g + '/miniatures/' + gphotos[j] + '" alt="' + gphotos[j] + '" onClick="javascript:wall.afficheUnePhoto(' + i + ', ' + j + ')"></td>') ;
 				k++ ;
 				if (k >= 3) {
 					string.push('<tr>') ;
@@ -384,12 +384,8 @@ var wall = {
 			) ;
 		}
 		//on affiche la photo
-		/*if (num < 10)			var numPhoto = "000" + num ;
-		else if (num < 100) 	var numPhoto = "00" + num ;
-		else if (num < 1000) 	var numPhoto = "0" + num ;
-		else 					var numPhoto = num ;*/
-		wall.galeries
 		$('laPhoto').src = "../photos/" + wall.galeries[galerie].nom + "/photos/" + wall.galeries[galerie].contenu[numero] ;
+		$('nomPhoto').innerHTML = wall.galeries[galerie].contenu[numero] ;
 		$('photoPrec').title = "Photo précédente" ;
 		$('photoSuiv').title = "Photo suivante" ;
 		//on regarde quel est le numéro précédent et, s'il existe, on règle l'observer sur le mapping de l'image côté gauche.
