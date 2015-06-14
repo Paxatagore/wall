@@ -89,7 +89,7 @@ wallAdmin = {
 				var string = [] ;
 				var json = requester.responseJSON ;
 				for (var i = 0 ; i < json.lenen ; i++) {
-					string.push(wallAdmin.traiteMessage(json.message[i])) ;
+					string.push(wallAdmin.traiteMessage(json.messages[i])) ;
 				}
 				$('messagesBody').innerHTML = string.join("") ;
 				console.log("Le résultat a été affiché.") ;
