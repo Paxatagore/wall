@@ -23,7 +23,6 @@ class personne extends alpha {
 		//la date de naissance
 		$this->date_naissance = mysqldb::date_to_mysql($this->date_naissance) ;
 		return 1 ;
-		
 	}
 	
 	function checkpwd($test) {
