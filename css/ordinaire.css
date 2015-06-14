@@ -366,11 +366,25 @@ th {
     text-align: center;
 	width:280px;
 }
-#dropArea.hover {
+.hover {
     background-color: #CCCCCC;
+	border: 3px dashed #000000;
+    font-size: 24px;
+    font-weight: bold;
+    height: 280px;
+    margin: 20px;
+    text-align: center;
+	width:280px;
 }
-#dropArea.uploading {
+.uploading {
     background-color: #EEEEEE;
+	border: 3px dashed #000000;
+    font-size: 24px;
+    font-weight: bold;
+    height: 280px;
+    margin: 20px;
+    text-align: center;
+	width:280px;
 }
 
 
