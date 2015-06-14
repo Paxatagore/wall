@@ -23,17 +23,19 @@ if (isset($_FILES['myfile'])) {
 			$compteur++ ;
 			$image = new Imagick('../photos/'.$galerie.'/'.$sFileName) ;
 			//a - sauvegarde de l'image principale dans le dossier des photos, avec renommage
-			if ($compteur < 10) 		$nnf = "photo000".$compteur.".jpg" ;
-			elseif ($compteur < 100) 	$nnf = "photo00".$compteur.".jpg" ;
-			elseif ($compteur < 1000)	$nnf = "photo0".$compteur.".jpg" ;
-			else 						$nnf = "photo".$compteur.".jpg" ;
+			//if ($compteur < 10) 		$nnf = "photo000".$compteur.".jpg" ;
+			//elseif ($compteur < 100) 	$nnf = "photo00".$compteur.".jpg" ;
+			//elseif ($compteur < 1000)	$nnf = "photo0".$compteur.".jpg" ;
+			//else 						$nnf = "photo".$compteur.".jpg" ;
+			$nnf = $sFileName ;
 			$s = $image->writeImage($url."/photos/".$nnf) ;
 			//b - réalisation d'une miniature
 			$t = $image->thumbnailImage(300, 0) ;
 			$image->writeImage($url."/miniatures/".$nnf) ;
 			//suppression de l'image
-			$t = unlink($url."/".$sFileName) ;
-			$json = '{"status":1, "compteur":'.$compteur.', "photoNom":"'.$nnf.'"}' ;
+			//$t = unlink($url."/".$sFileName) ;
+			//$json = '{"status":1, "compteur":'.$compteur.', "photoNom":"'.$nnf.'"}' ;
+			$json = '{"status":1, "fichier":"'.$nnf.'"}' ;
 		}
 		else {
 			$json = '{"status":-1, "fichier":"'.$sFileName.'"}' ;

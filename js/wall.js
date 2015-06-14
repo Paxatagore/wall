@@ -288,12 +288,11 @@ var wall = {
 		$('albums_photos').innerHTML = string.join("") ;
 		for (var i = 0 ; i < galeries.length ; i++) {
 			var g = galeries[i].nom ;
-			$('dropArea_' + g).observe("drop", function(e) {
-				handleDrop(e, g) ;
-			}) ;
-			$('dropArea_' + g).observe("dragover", function(e) {
-				handleDrop(e, g) ;
-			}) ;//on ajoute deux Observer, pour le drag & drop.
+			var evt = function (g) {
+				$('dropArea_' + g).observe("drop", function(e) {handleDrop(e, g) ;}) ;
+				$('dropArea_' + g).observe("dragover", function(e) {handleDrop(e, g) ;}) ;//on ajoute deux Observer, pour le drag & drop.
+			} ;
+			evt(g) ;
 		}
 		
 		function handleDragOver(event, g) {
@@ -328,7 +327,7 @@ var wall = {
 			}
 			// création de l'objet XMLHttpRequest
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '../AJAX/postphotos.php?galerie=' + galerie) ;
+			xhr.open('POST', '../AJAX/postphotos.php?galerie=' + g) ;
 			xhr.onload = function() {
 				$('dropArea_' + g).innerHTML = "Chargement terminé...." ;
 				wall.affichePhotos() ;
