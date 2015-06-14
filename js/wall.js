@@ -272,7 +272,7 @@ var wall = {
 			var g = galeries[i].nom ;
 			var gphotos = galeries[i].contenu ;
 			console.log(g) ;
-			string.push('<h3>' + g + '</h3><div class="album" id="photos_' + g + '"></div><table id="galerie_' + g + '" nElement = "' + gphotos.length + '">') ;			
+			string.push('<h3>' + g + '</h3><div class="album" id="photos_' + g + '"><table id="galerie_' + g + '" nElement = "' + gphotos.length + '">') ;			
 			var k = 0 ;
 			for (var j = 0 ; j < gphotos.length ; j++) {
 				if (!k) string.push('<tr>') ;
@@ -284,7 +284,7 @@ var wall = {
 				}
 			}
 			if (k == 0) string.push('<tr>') ;
-			string.push('<td><div class="dropArea" id="dropArea_' + g + '"><p></p>Déposez ici une nouvelle photo.</div></td></tr></table>') ;
+			string.push('<td><div class="dropArea" id="dropArea_' + g + '"><p></p>Déposez ici une nouvelle photo.</div></td></tr></table></div>') ;
 		} 
 		$('albums_photos').innerHTML = string.join("") ;
 		for (var i = 0 ; i < galeries.length ; i++) {
