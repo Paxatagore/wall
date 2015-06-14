@@ -282,7 +282,7 @@ var wall = {
 					k = 0 ;
 				}
 			}
-			if (!k == 0) string.push('<tr>') ;
+			if (k == 0) string.push('<tr>') ;
 			string.push('<td><div class="dropArea" id="dropArea_' + g + '"><p></p>Déposez ici une nouvelle photo.</div></td></tr></table>') ;
 		} 
 		$('albums_photos').innerHTML = string.join("") ;
