@@ -13,7 +13,6 @@ if (isset($_FILES['myfile'])) {
 	else {
 		$t = move_uploaded_file($sTemp, $url."/".$sFileName) ;
 		if ($t) {
-			
 			$p = opendir('../photos/'.$galerie.'/photos/') ;
 			$compteur = 0 ;
 			while (($file = readdir($p)) !== false) {
@@ -22,20 +21,45 @@ if (isset($_FILES['myfile'])) {
 			}
 			$compteur++ ;
 			$image = new Imagick('../photos/'.$galerie.'/'.$sFileName) ;
-			//a - sauvegarde de l'image principale dans le dossier des photos, avec renommage
-			//if ($compteur < 10) 		$nnf = "photo000".$compteur.".jpg" ;
-			//elseif ($compteur < 100) 	$nnf = "photo00".$compteur.".jpg" ;
-			//elseif ($compteur < 1000)	$nnf = "photo0".$compteur.".jpg" ;
-			//else 						$nnf = "photo".$compteur.".jpg" ;
-			$nnf = $sFileName ;
-			$s = $image->writeImage($url."/photos/".$nnf) ;
-			//b - réalisation d'une miniature
-			$t = $image->thumbnailImage(300, 0) ;
-			$image->writeImage($url."/miniatures/".$nnf) ;
-			//suppression de l'image
-			//$t = unlink($url."/".$sFileName) ;
-			//$json = '{"status":1, "compteur":'.$compteur.', "photoNom":"'.$nnf.'"}' ;
-			$json = '{"status":1, "fichier":"'.$nnf.'"}' ;
+			$orientation = $image->getImageOrientation() ; 
+			 switch($orientation) {
+				case imagick::ORIENTATION_BOTTOMRIGHT:
+					$image->rotateimage("#000", 180); // rotate 180 degrees
+				break;
+
+				case imagick::ORIENTATION_RIGHTTOP:
+					$image->rotateimage("#000", 90); // rotate 90 degrees CW
+				break;
+
+				case imagick::ORIENTATION_LEFTBOTTOM:
+					$image->rotateimage("#000", -90); // rotate 90 degrees CCW
+				break;
+			}
+			// Now that it's auto-rotated, make sure the EXIF data is correct in case the EXIF gets saved with the image!
+			$image->setImageOrientation(imagick::ORIENTATION_TOPLEFT); 
+
+			//a - sauvegarde de l'image principale dans le dossier de stockage photos
+			$s = $image->writeImage($url."/".$file."/stockage/".$sFileName) ;
+			if (!$s) $json = '{"status":-4, "fichier":"'.$sFileName.'"}' ;
+			else {
+				//b - réalisation d'une image de taille moyenne
+				$t = $image->thumbnailImage(0, 600) ;	
+				if (!$t) $json = '{"status":-5, "fichier":"'.$sFileName.'"}' ;
+				else {
+					$s = $image->writeImage($url."/".$file."/photos/".$sFileName) ;
+					//c - réalisation d'une miniature
+					if($image->getImageHeight() <= $image->getImageWidth()) {
+						$t = $image->thumbnailImage(300, 0) ;	
+					}
+					else {
+						$t = $image->thumbnailImage(0, 300) ;	
+					}
+					if (!$t) $json = '{"status":-5, "fichier":"'.$sFileName.'"}' ;
+					$s = $image->writeImage($url."/".$file."/miniatures/".$sFileName) ;
+					if (!$s) $json = '{"status":-6, "fichier":"'.$sFileName.'"}' ;
+					else $json = '{"status":1, "fichier":"'.$sFileName.'"}' ;
+				}
+			}
 		}
 		else {
 			$json = '{"status":-1, "fichier":"'.$sFileName.'"}' ;
