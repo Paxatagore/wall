@@ -70,7 +70,7 @@ wallAdmin = {
 						var d = u.date_naissance.split("-") ;
 						var dd = u.derniere_connexion.split(" ") ;
 						var dd2 = dd[0].split("-") ;	
-						string.push('<tr id="User' + u.num + '"><td><a href="mailto:' + u.mail + '">' + u.prenom + '</a></td><td><a href="mailto:' + u.mail + '">' + u.nom + '</a></td><td>' + u.adresse + '</td><td>' + u.ville + '</td><td>' + d[2] + "/" + d[1] + "/" + d[0] + '</td><td>' + u.lieu_naissance + '</td><td>' + dd2[2] + "/" + dd2[1] + "/" + dd2[0]  + '</td></tr>') ; 
+						string.push('<tr id="User' + u.num + '"><td><a href="mailto:' + u.mail + '">' + u.prenom + '</a></td><td><a href="mailto:' + u.mail + '">' + u.nom + '</a></td><td>' + u.adresse + '</td><td>' + u.ville + '</td><td>' + d[2] + "/" + d[1] + "/" + d[0] + '</td><td>' + u.lieu_naissance + '</td><td>' + dd2[2] + "/" + dd2[1] + "/" + dd2[0]  + ' à ' + dd[1] + '</td></tr>') ; 
 					}
 					wallAdmin.displaynUsers() ;
 					$('UsersBody').innerHTML = string.join("") ;
