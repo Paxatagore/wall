@@ -26,7 +26,7 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 		$p = new personne() ;
 		$p->select("WHERE newsletter = ".$level) ;
 		while ($p->next()) {
-			$m = mail($p->mail, "Newletter du site familial des Brier",  $message.$message2, $headers) ;
+			$m = mail($p->mail, "Newsletter du site familial des Brier",  $message.$message2, $headers) ;
 			if ($m) echo ("Envoi du message à $p->mail. ") ;
 			else echo ("Echec de l'envoi du message à $p->mail. ") ;
 		}
