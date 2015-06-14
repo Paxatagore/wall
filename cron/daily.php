@@ -12,7 +12,8 @@ mysqldb::instance($bddserver, $bdduser, $bddpassword, $bdddatabase) ;
 
 function traitement($level = 1, $codeSQL="1 DAY") {
 	$q = "SELECT DISTINCT message.*, personne.nom, personne.prenom, personne.mail FROM message, personne WHERE personne.num = message.auteur AND date BETWEEN DATE_SUB(NOW(), INTERVAL ".$codeSQL.") AND NOW() ORDER BY DATE ASC" ;
-	$message = '<html><head><title>De nouveaux messages sur le site familial des Brier</title></head><body>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
+	$message = '<html><head><title>De nouveaux messages sur le site familial des Brier</title></head><body>' ;
+	$message3 = '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
 	$headers  = 'MIME-Version: 1.0' . "\r\n";
 	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
 	$headers .= 'From: Mur de Brier <as@steppe.fr>' . "\r\n";
@@ -29,7 +30,7 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 		$p = new personne() ;
 		$p->select("WHERE newsletter = ".$level) ;
 		while ($p->next()) {
-			$m = mail($p->mail, "Newsletter du site familial des Brier",  $message.$message2, $headers) ;
+			$m = mail($p->mail, "Newsletter du site familial des Brier",  $message.$message2.$message3, $headers) ;
 			if ($m) echo ("Envoi du message à $p->mail. ") ;
 			else echo ("Echec de l'envoi du message à $p->mail. ") ;
 		}
