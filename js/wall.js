@@ -255,7 +255,8 @@ var wall = {
 			"method":"GET",
 			"onSuccess":function(requester) {
 				console.log(requester.responseJSON.galeries) ; 
-				return wall.affichePhotos2(requester.responseJSON.galeries) ;
+				wall.galeries = requester.responseJSON.galeries
+				return wall.affichePhotos2(wall.galeries) ;
 				
 			}
 		}) ;	//lance une requête AJAX sur galeries.php, qui retourne un tableau de la liste des galeries à afficher.
@@ -275,7 +276,7 @@ var wall = {
 			var k = 0 ;
 			for (var j = 0 ; j < gphotos.length ; j++) {
 				if (!k) string.push('<tr>') ;
-				string.push('<td><img src="../photos/' + g + "/miniatures/" + gphotos[j] + '" alt=""></td>') ;
+				string.push('<td><img src="../photos/' + g + "/miniatures/" + gphotos[j] + '" alt="" onClick="javascript:wall.afficheUnePhoto(' + i + ', ' + j + ')"></td>') ;
 				k++ ;
 				if (k >= 3) {
 					string.push('<tr>') ;
@@ -366,7 +367,7 @@ var wall = {
 		return true ;
 	},
 	
-	afficheUnePhoto:function(num, galerie) {
+	afficheUnePhoto:function(galerie, numero) {
 		/* cette fonction gère l'affichage d'une photo dans l'album, càd en grand */
 		$('photoPrec').stopObserving() ;	// on enlève les observeurs pour éviter qu'ils ne s'accumulent.
 		$('photoSuiv').stopObserving() ;
@@ -383,42 +384,39 @@ var wall = {
 			) ;
 		}
 		//on affiche la photo
-		if (num < 10)			var numPhoto = "000" + num ;
+		/*if (num < 10)			var numPhoto = "000" + num ;
 		else if (num < 100) 	var numPhoto = "00" + num ;
 		else if (num < 1000) 	var numPhoto = "0" + num ;
-		else 					var numPhoto = num ;
-		$('laPhoto').src = "../photos/" + galerie + "/photos/photo" + numPhoto + '.jpg' ;
+		else 					var numPhoto = num ;*/
+		wall.galeries
+		$('laPhoto').src = "../photos/" + wall.galeries[galerie].nom + "/photos/" + wall.galeries[galerie].contenu[numero] ;
 		$('photoPrec').title = "Photo précédente" ;
 		$('photoSuiv').title = "Photo suivante" ;
 		//on regarde quel est le numéro précédent et, s'il existe, on règle l'observer sur le mapping de l'image côté gauche.
-		var prec = num - 1 ;
-		if (prec > 0) $('photoPrec').observe("click", function() { 
+		var prec = numero - 1 ;
+		if (prec >= 0) $('photoPrec').observe("click", function() { 
 				$('photoPrec').stopObserving() ;	//on bloque aussitôt les observeurs pour éviter une double manoeuvre
 				$('photoSuiv').stopObserving() ;
-				wall.afficheUnePhoto(prec, galerie) ; 	//on affiche la photo précédente
+				wall.afficheUnePhoto(galerie, prec) ; 	//on affiche la photo précédente
 			}) ;
 		else {
 			$('photoPrec').title = "C'est la première photo" ;
 		}
 		//on fait pareil pour la photo suivante
-		var suiv = num + 1 ;
-		if (suiv <= eval($('galerie_' + galerie).getAttribute("nelement"))) { 	//le nombre de photos dans la galeries
+		var suiv = numero + 1 ;
+		console.log(wall.galeries[galerie].contenu.length) ;
+		if (suiv < wall.galeries[galerie].contenu.length) { 	//le nombre de photos dans la galeries
 			$('photoSuiv').observe("click", function() { 
 				$('photoPrec').stopObserving() ;
 				$('photoSuiv').stopObserving() ;
-				wall.afficheUnePhoto(suiv, galerie) ; 
+				wall.afficheUnePhoto(galerie, suiv) ; 
 			}) ;
 		}
 		else {
 			$('photoSuiv').title = "C'est la fin de l'album" ;
 		}
-		//ici, des réglages à apporter !
-		console.log($('laPhoto').height ) ;
-		if ($('laPhoto').height > $('laPhoto').width) {
-			$('laPhoto').width = ($('laPhoto').width * 600) / $('laPhoto').height ;
-			$('laPhoto').height = 600 ;
-			console.log($('laPhoto').height ) ;
-		}
+		console.log("Fin de afficheUnePhoto.") ;
+		return true ;
 	}
 } ;
 
