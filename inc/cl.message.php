@@ -35,7 +35,6 @@ class message extends alpha {
 		$headers .= 'From: Mur de Brier <as@steppe.fr>' . "\r\n";
 		$message2 = '<div><b>'.$p->prenom.' '.$p->nom.' vient de poster le message suivant :</b></div><div>'.$this->texte.'</div><hr>' ;
 		while ($p2->next()) {
-			echo("Envoi d'un mail à $p2->mail.") ;
 			$m = mail($p2->mail, "Nouveau message sur le site familial des Brier",  $message.$message2.$message3, $headers) ;
 		}
 		return true ;

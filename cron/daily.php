@@ -27,13 +27,17 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 			$h = explode(":", $d[1]) ;
 			$message2 .= '<div><b>Le '.$j[2].'/'.$j[1].'/'.$j[0].' à '.$h[0].':'.$h[1].' , <a href="mailto:'.$row->mail.'">'.$row->prenom.' '.$row->nom.'</a> a posté le message suivant :</b></div><div>'.$row->texte.'</div><hr>' ;
 		}
+		$message = $message.$message2.$message3 ;
 		$p = new personne() ;
 		$p->select("WHERE newsletter = ".$level) ;
+		$destinataires = array() ;
 		while ($p->next()) {
-			$m = mail($p->mail, "Newsletter du site familial des Brier",  $message.$message2.$message3, $headers) ;
-			if ($m) echo ("Envoi du message à $p->mail. ") ;
-			else echo ("Echec de l'envoi du message à $p->mail. ") ;
+			$destinaires[] = $p->mail ;
 		}
+		$destinataires = implode(", ", $destinaires) ;
+		$m = mail($p->mail, "Newsletter du site familial des Brier", $message, $headers) ;
+		if ($m) echo ("Envoi du message à $destinataires. $message") ;
+		else echo ("Échec de l'envoi du message à $p->mail. $message") ;
 	}
 	else {
 		echo ("Aucun message à envoyer pour le level $level.") ;
