@@ -16,11 +16,22 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 	$boundary 		= "-----=".md5(rand()) ;
 	$sujet 			= "Newsletter du site familial des Brier" ;
 	
+	//destinataires
+	$p = new personne() ;
+	$p->select("WHERE newsletter = ".$level) ;
+	$destinataires = array() ;
+	while ($p->next()) {
+		$destinaires[] = $p->mail ;
+	}
+	$destinataires = implode(", ", $destinaires) ;
+	
 	// Création du header de l'e-mail
 	$header = 'From: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
 	$header.= 'Reply-to: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
 	$header.= 'MIME-Version: 1.0'.$passage_ligne ;
-	$header.= 'Content-Type: multipart/alternative;'.$passage_ligne.' boundary=\"'.$boundary.'\"'.$passage_ligne ;
+	$header.= "Bcc: ".$destinataires.$passage_ligne ;
+	$header.= "X-Mailer: PHP/".phpversion().$passage_ligne ;
+	$header.= 'Content-Type: text/html; charset=UTF-8'.$passage_ligne ;
 	
 	//contenu
 	$q = "SELECT DISTINCT message.*, personne.nom, personne.prenom, personne.mail FROM message, personne WHERE personne.num = message.auteur AND date BETWEEN DATE_SUB(NOW(), INTERVAL ".$codeSQL.") AND NOW() ORDER BY DATE ASC" ;
@@ -38,34 +49,17 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 		}
 		$corpsHTML 	= wordwrap($corpsHTML, 70, "\r\n") ;
 		$corpsTxt 	= wordwrap($corpsTxt, 70, "\r\n") ;
-		$p = new personne() ;
-		$p->select("WHERE newsletter = ".$level) ;
-		$destinataires = array() ;
-		while ($p->next()) {
-			$destinaires[] = $p->mail ;
-		}
-		$destinataires = implode(", ", $destinaires) ;
+
 		
 		$bottomtxt		= "Vous êtes abonné à la liste d\'informations du site de la famille Brier. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement sur le site internet (https://www.steppe.fr/deBrier/wall)." ;
 		$bottomHtml		= '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
 		$bottomtxt 		= wordwrap($bottomtxt, 70, "\r\n") ;
 		$bottomHtml 	= wordwrap($bottomHtml, 70, "\r\n") ;
 
-		// Création du message
-		$message = $passage_ligne."--".$boundary.$passage_ligne ;
-		//=====Ajout du message au format texte.
-		$message.= "Content-Type: text/plain; charset=\"UTF-8\"".$passage_ligne ;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne ;
-		$message.= $passage_ligne.$corpsTxt.$bottomtxt.$passage_ligne ;
-		$message.= $passage_ligne."--".$boundary.$passage_ligne;
 		//=====Ajout du message au format HTML
-		$message.= "Content-Type: text/html; charset=\"UTF-8\"".$passage_ligne ;
-		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne ;
-		$message.= $passage_ligne."<html><head></head><body>".$corpsHTML.$bottomHtml."</body></html>".$passage_ligne ;
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne ;
-		$message.= $passage_ligne."--".$boundary."--".$passage_ligne ;
-	
-		$m = mail($destinataires, $sujet, $message, $header) ;
+		$message = $passage_ligne."<html><head></head><body>".$corpsHTML.$bottomHtml."</body></html>".$passage_ligne ;
+		
+		$m = mail("nous.debrier@outlook.com", $sujet, $message) ;
 		if ($m) echo ("Envoi du message à $destinataires. $message") ;
 		else echo ("Échec de l'envoi du message à $p->mail. $message") ;
 		$m2 = mail("m@steppe.fr", "Envoi de la NL des Brier avec du contenu", $message) ;
