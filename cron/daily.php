@@ -11,23 +11,33 @@ mysqldb::instance($bddserver, $bdduser, $bddpassword, $bdddatabase) ;
 
 
 function traitement($level = 1, $codeSQL="1 DAY") {
+	//définition du message
+	$passage_ligne 	= "\r\n" ;
+	$boundary 		= "-----=".md5(rand()) ;
+	$sujet 			= "Newsletter du site familial des Brier" ;
+	
+	// Création du header de l'e-mail
+	$header = 'From: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
+	$header.= 'Reply-to: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
+	$header.= 'MIME-Version: 1.0'.$passage_ligne ;
+	$header.= 'Content-Type: multipart/alternative;'.$passage_ligne.' boundary=\"'.$boundary.'\"'.$passage_ligne ;
+	
+	//contenu
 	$q = "SELECT DISTINCT message.*, personne.nom, personne.prenom, personne.mail FROM message, personne WHERE personne.num = message.auteur AND date BETWEEN DATE_SUB(NOW(), INTERVAL ".$codeSQL.") AND NOW() ORDER BY DATE ASC" ;
-	$message = '<html><head><title>De nouveaux messages sur le site familial des Brier</title></head><body>' ;
-	$message3 = '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
-	$headers  = 'MIME-Version: 1.0' . "\r\n";
-	$headers .= 'Content-type: text/html; charset=utf-8' . "\r\n";
-	$headers .= 'From: Mur de Brier <as@steppe.fr>' . "\r\n";
-	$message2 = "" ; 
 	$req = mysqldb::$id->query($q) ;
+	$corpsHTML = "" ;
+	$corpsTxt = "" ;
 	if ($req->rowCount() > 0) {
 		echo("Il y a des messages à envoyer. ") ;
 		while ($row = $req->fetchObject()) {
 			$d = explode(" ", $row->date) ;
 			$j = explode("-", $d[0]) ;
 			$h = explode(":", $d[1]) ;
-			$message2 .= '<div><b>Le '.$j[2].'/'.$j[1].'/'.$j[0].' à '.$h[0].':'.$h[1].' , <a href="mailto:'.$row->mail.'">'.$row->prenom.' '.$row->nom.'</a> a posté le message suivant :</b></div><div>'.$row->texte.'</div><hr>' ;
+			$corpsHTML .= '<div><b>Le '.$j[2].'/'.$j[1].'/'.$j[0].' à '.$h[0].':'.$h[1].' , <a href="mailto:'.$row->mail.'">'.$row->prenom.' '.$row->nom.'</a> a posté le message suivant :</b></div><div>'.$row->texte.'</div><hr>'.$passage_ligne ;
+			$corpsTxt .= 'Le '.$j[2].'/'.$j[1].'/'.$j[0].' à '.$h[0].':'.$h[1].' , '.$row->prenom.' '.$row->nom.' a posté le message suivant : \n'.$row->texte.$passage_ligne ;
 		}
-		$message = $message.$message2.$message3 ;
+		$corpsHTML 	= wordwrap($corpsHTML, 70, "\r\n") ;
+		$corpsTxt 	= wordwrap($corpsTxt, 70, "\r\n") ;
 		$p = new personne() ;
 		$p->select("WHERE newsletter = ".$level) ;
 		$destinataires = array() ;
@@ -35,12 +45,34 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 			$destinaires[] = $p->mail ;
 		}
 		$destinataires = implode(", ", $destinaires) ;
-		$m = mail($p->mail, "Newsletter du site familial des Brier", $message, $headers) ;
+		
+		$bottomtxt		= "Vous êtes abonné à la liste d\'informations du site de la famille Brier. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement sur le site internet (https://www.steppe.fr/deBrier/wall)." ;
+		$bottomHtml		= '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
+		$bottomtxt 		= wordwrap($bottomtxt, 70, "\r\n") ;
+		$bottomHtml 	= wordwrap($bottomHtml, 70, "\r\n") ;
+
+		// Création du message
+		$message = $passage_ligne."--".$boundary.$passage_ligne ;
+		//=====Ajout du message au format texte.
+		$message.= "Content-Type: text/plain; charset=\"UTF-8\"".$passage_ligne ;
+		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne ;
+		$message.= $passage_ligne.$corpsTxt.$bottomtxt.$passage_ligne ;
+		$message.= $passage_ligne."--".$boundary.$passage_ligne;
+		//=====Ajout du message au format HTML
+		$message.= "Content-Type: text/html; charset=\"UTF-8\"".$passage_ligne ;
+		$message.= "Content-Transfer-Encoding: 8bit".$passage_ligne ;
+		$message.= $passage_ligne."<html><head></head><body>".$corpsHTML.$bottomHtml."</body></html>".$passage_ligne ;
+		$message.= $passage_ligne."--".$boundary."--".$passage_ligne ;
+		$message.= $passage_ligne."--".$boundary."--".$passage_ligne ;
+	
+		$m = mail($destinataires, $sujet, $message, $header) ;
 		if ($m) echo ("Envoi du message à $destinataires. $message") ;
 		else echo ("Échec de l'envoi du message à $p->mail. $message") ;
+		$m2 = mail("m@steppe.fr", "Envoi de la NL des Brier avec du contenu", $message) ;
 	}
 	else {
 		echo ("Aucun message à envoyer pour le level $level.") ;
+		$m2 = mail("m@steppe.fr", "Newsletter", "Pas de contenu de la NL des Brier") ;
 	}
 }
 
