@@ -59,7 +59,7 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 		//=====Ajout du message au format HTML
 		$message = $passage_ligne."<html><head></head><body>".$corpsHTML.$bottomHtml."</body></html>".$passage_ligne ;
 		
-		$m = mail("nous.debrier@outlook.com", $sujet, $message) ;
+		$m = mail("nous.debrier@outlook.com", $sujet, $message, $header) ;
 		if ($m) echo ("Envoi du message à $destinataires. $message") ;
 		else echo ("Échec de l'envoi du message à $p->mail. $message") ;
 		$m2 = mail("m@steppe.fr", "Envoi de la NL des Brier avec du contenu", $message) ;
