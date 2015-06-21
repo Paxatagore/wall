@@ -2,12 +2,15 @@ var connexion = {
 
 	initialise:function() {
 		//une personne est-elle déjà en mémoire ?
-		if (localStorage.hasOwnProperty("personne" + parametres.suffixe)) {
-			console.log("Une personne est déjà connectée. Je la reprends.") ;
-			return connexion.tryToConnect(JSON.parse(localStorage["personne"+parametres.suffixe])) ;
-		}
+		console.log(localStorage) ;
 		$('connexionboutton').observe("click", connexion.tryToAuthentify) ;
 		$('inscriptionbouton').observe("click", connexion.sinscrire) ;	//inscription		
+		if (localStorage.hasOwnProperty("personne" + parametres.suffixe)) {
+			console.log("Une personne est déjà connectée. Je la reprends.") ;
+			var p = JSON.parse(localStorage["personne"+parametres.suffixe]) ;
+			if (p.motdepasse != "") return connexion.tryToConnect(p) ;
+		}
+		return true ;
 	},
 	
 	tryToConnect:function(p) {
