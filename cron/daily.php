@@ -1,10 +1,10 @@
 <?php
 
 function __autoload($class_name) {
-    (@require_once "../inc/cl.".$class_name.".php") or die("Impossible de trouver ".$class_name) ;
+    (@require_once "/home/asophie/www/deBrier/wall/inc/cl.".$class_name.".php") or die("Impossible de trouver ".$class_name) ;
 }
-require_once("../local/database.php") ;		//les coordonnées de connexion à mysql
-require_once("../inc/cl.alpha.php") ;		//la classe alpha
+require_once("/home/asophie/www/deBrier/wall/local/database.php") ;		//les coordonnées de connexion à mysql
+require_once("/home/asophie/www/deBrier/wall/inc/cl.alpha.php") ;		//la classe alpha
 
 //Connexion mysql
 mysqldb::instance($bddserver, $bdduser, $bddpassword, $bdddatabase) ;
