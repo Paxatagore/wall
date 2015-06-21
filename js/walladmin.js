@@ -7,6 +7,7 @@ wallAdmin = {
 	fnl:["aucune", "quotidienne", "hebdomadaire", "mensuel", "trimestriel", "annuel"],
 
 	initialise:function() {
+		$('mainConteneur').style["max-width"] = "2000px" ;
 		if (!localStorage.hasOwnProperty("personne" + parametres.suffixe)) {
 			console.log("Personne n'est connecté... on renvoie sur la page index.") ;
 			window.document.location="index.html" ;
