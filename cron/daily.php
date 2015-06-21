@@ -52,7 +52,8 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 
 		
 		$bottomtxt		= "Vous êtes abonné à la liste d\'informations du site de la famille Brier. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement sur le site internet (https://www.steppe.fr/deBrier/wall)." ;
-		$bottomHtml		= '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>' ;
+		$bottomHtml		= '<p></p>Vous êtes abonné à la liste d\'informations du site. Voici les nouveaux messages publiés depuis votre dernière livraison. Le rythme des mails que vous recevez dépend de votre abonnement - vous pouvez le modifier directement <a href="https://www.steppe.fr/deBrier/wall">sur le site</a>.<p></p>Merci de ne pas répondre à ce mail depuis votre boite mail. Si vous souhaitez envoyer un message à toute la famille, vous devez aller sur le site internet et poster votre message sur le mur (page d\'accueil).<p></p>' ;
+
 		$bottomtxt 		= wordwrap($bottomtxt, 70, "\r\n") ;
 		$bottomHtml 	= wordwrap($bottomHtml, 70, "\r\n") ;
 
