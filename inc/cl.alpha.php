@@ -193,8 +193,8 @@ abstract class alpha {
 	private function jsonMaker($cle) {
 		$contenu = $this->$cle ;
 		if (!mb_check_encoding($contenu, "UTF-8")) $contenu = mb_convert_encoding($contenu, "UTF-8") ;
-		$contenu = str_replace(chr(10), "", $contenu) ;
-		$contenu = str_replace(chr(13), "", $contenu) ;
+		//$contenu = str_replace(chr(10), "", $contenu) ;
+		//$contenu = str_replace(chr(13), "", $contenu) ;
 		return '"'.$cle.'" : '.json_encode($contenu).',' ;
 	}
 	
@@ -241,9 +241,7 @@ abstract class alpha {
 		return 1 ;
 	}
 	
-		
 	//fonction d'affichage 
-	
 	public function display() {
 		return $this->nom ;
 	}

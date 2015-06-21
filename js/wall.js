@@ -100,10 +100,9 @@ var wall = {
 		var dd2 = dd.split("-") ;
 		var h = d[1] ;
 		var h2 = h.split(":") ;
-		var texte = m.texte.split("\n") ;
-		texte = texte.join("<br/>") ;
+		var texte = m.texte.split("\n").join('<br/>') ;
 		if (dd == "2015-05-01") return '<div id="message_' + m.num + '" class="message"><div class="messageCorps">' + texte + '</div></div>' ;
-		else return '<div id="message_' + m.num + '" class="message"><div class="messageTete">Le ' + dd2[2] + " " + wallApp.mois[eval(dd2[1])] + " " + dd2[0] + ' à ' + h2[0] + 'h' + h2[1] + ', <a href="mailto:' + m.mail + '">' + m.auteur + '</a> a posté le message suivant :</div><div class="messageCorps">' + m.texte + '</div></div>' ;
+		else return '<div id="message_' + m.num + '" class="message"><div class="messageTete">Le ' + dd2[2] + " " + wallApp.mois[eval(dd2[1])] + " " + dd2[0] + ' à ' + h2[0] + 'h' + h2[1] + ', <a href="mailto:' + m.mail + '">' + m.auteur + '</a> a posté le message suivant :</div><div class="messageCorps">' + texte + '</div></div>' ;
 	},
 	
 	displayinfo:function(e) {
