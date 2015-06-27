@@ -42,9 +42,9 @@
 			<form id="nouveauMessage" method="post" action="javascript:void()">
 				<fieldset>
 				<legend>Ajoutez ici votre message</legend>
-				<textarea rows="5" cols="100" id="message_text"></textarea>
+				<textarea rows="5" cols="100" id="message_text" name="message_text"></textarea>
 				<div class="fboutton">
-					<input class="rightbutton" type="submit" id="envoimessageboutton" value="Envoyer ce message">
+					<input class="rightbutton" type="submit" id="envoimessageboutton" name="envoimessageboutton" value="Envoyer ce message">
 				</div>
 			</fieldset>
 			</form>
@@ -59,22 +59,22 @@
 			<form method="javascript:void()" id="formCompte">
 			<fieldset>
 				<legend>Mes paramètres</legend>
-				<input type="hidden" id="monCompte_num" value="">
+				<input type="hidden" id="monCompte_num" name="monCompte_num" value="">
 				<div class="fchamp">
 					<label for="monCompte_nom" class="left">Nom</label>
-					<input type="text" id="monCompte_nom" value="" size="40">
+					<input type="text" id="monCompte_nom" namee="monCompte_nom" value="" size="40">
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_prenom" class="left">Prénom</label>
-					<input type="text" id="monCompte_prenom" value="" size="40">
+					<input type="text" id="monCompte_prenom" name="monCompte_prenom" value="" size="40">
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_mail" class="left">E-Mail</label>
-					<input type="text" id="monCompte_mail" value="" size="80">
+					<input type="text" id="monCompte_mail" name="monCompte_mail" value="" size="80">
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_newsletter" class="left">Newsletter</label>
-					<select id="monCompte_newsletter">
+					<select id="monCompte_newsletter" name="monCompte_newsletter">
 						<option id="monCompte_newsletter-0" value="0">Non</option>
 						<option id="monCompte_newsletter-1" value="1">Quotidienne</option>
 						<option id="monCompte_newsletter-2" value="2">Hebdomadaire</option>
@@ -86,27 +86,27 @@
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_datenaissance" class="left">Date de naissance</label>
-					<input type="text" id="monCompte_datenaissance" value="" size="80"> (au format jj/mm/aaaa)
+					<input type="text" id="monCompte_datenaissance" name="monCompte_datenaissance" value="" size="80"> (au format jj/mm/aaaa)
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_lieunaissance" class="left">Lieu de naissance</label>
-					<input type="text" id="monCompte_lieunaissance" value="" size="80"> (ville, pays)
+					<input type="text" id="monCompte_lieunaissance" name="monCompte_lieunaissance" value="" size="80"> (ville, pays)
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_adresse" class="left">Adresse</label>
-					<input type="text" id="monCompte_adresse" value="" size="250">
+					<input type="text" id="monCompte_adresse" name="monCompte_adresse" value="" size="250">
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_ville" class="left">Ville</label>
-					<input type="text" id="monCompte_ville" value="" size="80">
+					<input type="text" id="monCompte_ville" name="monCompte_ville" value="" size="80">
 				</div>
 				<div class="fchamp">
 					<label for="monCompte_pays" class="left">Pays</label>
-					<select id="monCompte_pays">
+					<select id="monCompte_pays" name="monCompte_pays">
 					</select>
 				</div>
 				<div class="fboutton">
-					<input class="rightbutton" type="submit" id="monCompte_boutton" value="Enregistrer les modifications">
+					<input class="rightbutton" type="submit" id="monCompte_boutton" name="monCompte_boutton" value="Enregistrer les modifications">
 				</div>
 			</fieldset>
 			</form>
@@ -120,18 +120,18 @@
 				<input type="hidden" id="monMotdePasse_num" value="">
 				<div class="fchamp">
 					<label for="monMotdePasse_pw1" class="left">Mot de passe actuel</label>
-					<input type="password" id="monMotdePasse_pw1" value="" size="20">
+					<input type="password" id="monMotdePasse_pw1" name="monMotdePasse_pw1" value="" size="20">
 				</div>
 				<div class="fchamp">
 					<label for="monMotdePasse_pw2" class="left">Nouveau mot de passe</label>
-					<input type="password" id="monMotdePasse_pw2" value="" size="20">
+					<input type="password" id="monMotdePasse_pw2" name="monMotdePasse_pw2" value="" size="20">
 				</div>
 				<div class="fchamp">
 					<label for="monMotdePasse_pw3" class="left">Nouveau mot de passe (vérification)</label>
-					<input type="password" id="monMotdePasse_pw3" value="" size="20">
+					<input type="password" id="monMotdePasse_pw3" name="monMotdePasse_pw3" value="" size="20">
 				</div>
 				<div class="fboutton">
-					<input class="rightbutton" type="submit" id="monMotdePasse_bouton" value="Enregistrer les modifications">
+					<input class="rightbutton" type="submit" id="monMotdePasse_bouton" name="monMotdePasse_bouton" value="Enregistrer les modifications">
 				</div>
 			</fieldset>
 			</form>

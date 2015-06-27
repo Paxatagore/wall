@@ -8,6 +8,7 @@ class message extends alpha {
 	var $auteur ;
 	
 	var $mail ;
+	var $message_text ;
 	
 	var $fields		= array("num", "categorie", "texte", "pere", "date", "auteur") ;
 	var $jsonliste 	= array("num", "categorie", "texte", "pere", "date", "auteur", "mail") ;
@@ -16,6 +17,8 @@ class message extends alpha {
 	function beforetreat() {
 		//définition de la date
 		$this->date = date('Y-m-d H:i:s') ;
+		//reprise du texte
+		$this->texte = $this->message_text ;
 		return true ;
 	}
 	
@@ -35,7 +38,7 @@ class message extends alpha {
 		$headers .= 'From: Mur de Brier <as@steppe.fr>' . "\r\n";
 		$message2 = '<div><b>'.$p->prenom.' '.$p->nom.' vient de poster le message suivant :</b></div><div>'.$this->texte.'</div><hr>' ;
 		while ($p2->next()) {
-			$m = mail($p2->mail, "Nouveau message sur le site familial des Brier",  $message.$message2.$message3, $headers) ;
+			$m = @mail($p2->mail, "Nouveau message sur le site familial des Brier",  $message.$message2.$message3, $headers) ;
 		}
 		return true ;
 	}

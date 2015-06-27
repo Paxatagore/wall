@@ -24,7 +24,8 @@ var wall = {
 			$('envoimessageboutton').style.display = "none" ;
 			new Ajax.Request(localisation + 'REST/index.php', {
 				"method": "post",
-				"postBody":"objet=message&num=0&categorie=1&auteur=" + wall.personneConnectee + "&texte=" + $('message_text').value,
+				//"postBody":"objet=message&num=0&categorie=1&auteur=" + wall.personneConnectee + "&texte=" + $('message_text').value,
+				"postBody":"objet=message&num=0&categorie=1&auteur=" + wall.personneConnectee + "&" + $('message_text').serialize(),
 				"onSuccess":function(requester) {
 					console.log("J'ai reçu une réponse du serveur.") ;
 					var json = requester.responseJSON ;
