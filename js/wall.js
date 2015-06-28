@@ -387,9 +387,11 @@ var wall = {
 		}
 		//on affiche la photo
 		$('laPhoto').src = "../photos/" + wall.galeries[galerie].nom + "/photos/" + wall.galeries[galerie].contenu[numero] ;
-		$('nomPhoto').innerHTML = wall.galeries[galerie].contenu[numero] ;
-		$('photoPrec').title = "Photo précédente" ;
-		$('photoSuiv').title = "Photo suivante" ;
+		var nomPhoto = wall.galeries[galerie].contenu[numero] ;
+		nomPhoto = nomPhoto.replace(/.(jpg|png)/i, "") ;
+		$('nomPhoto').innerHTML = nomPhoto ;
+		$('photoPrec').innerHTML = "Photo précédente --- " ;
+		$('photoSuiv').innerHTML = " --- Photo suivante" ;
 		//on regarde quel est le numéro précédent et, s'il existe, on règle l'observer sur le mapping de l'image côté gauche.
 		var prec = numero - 1 ;
 		if (prec >= 0) $('photoPrec').observe("click", function() { 
@@ -398,7 +400,7 @@ var wall = {
 				wall.afficheUnePhoto(galerie, prec) ; 	//on affiche la photo précédente
 			}) ;
 		else {
-			$('photoPrec').title = "C'est la première photo" ;
+			$('photoPrec').innerHTML = "" ;
 		}
 		//on fait pareil pour la photo suivante
 		var suiv = numero + 1 ;
@@ -411,7 +413,7 @@ var wall = {
 			}) ;
 		}
 		else {
-			$('photoSuiv').title = "C'est la fin de l'album" ;
+			$('photoSuiv').innerHTML = "" ;
 		}
 		console.log("Fin de afficheUnePhoto.") ;
 		return true ;

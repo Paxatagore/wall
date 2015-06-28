@@ -311,13 +311,13 @@ th {
 }
 
 #albumPhotographique {
-	position: fixed;
+	position: fixed; 
 	background-color:#000000 ;
 	color:#ffffff;
-	top:80px;
+	top:0px;
 	left:0px;
 	width:100%;
-	height:80%;
+	height:100%;
 	display:none ;
 }
 
@@ -344,15 +344,19 @@ th {
 }
 
 #nomPhoto {
-	position:absolute;
+	width:200px;
+	margin-left: auto;
+	margin-right: auto;	
 	top:0px;
-	left:0px ;
+	text-align:center;
+	font-size:large;
 }
 
-#closeAlbum {
-	position:absolute;
-	right:0px;
-	bottom:0px ;
+#closeAlbumBox{
+	width:450px;
+	margin-left: auto;
+	margin-right: auto;	
+	text-align:center;
 }
 
 /* uploader de photos */
