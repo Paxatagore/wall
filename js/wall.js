@@ -330,7 +330,7 @@ var wall = {
 			}
 			// création de l'objet XMLHttpRequest
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '../AJAX/postphotos.php?galerie=' + g) ;
+			xhr.open('POST', '../AJAX/postphotos.php?galerie=' + g + '&auteur=' + $('monCompte_num').value) ;
 			xhr.onload = function() {
 				$('dropArea_' + g).innerHTML = "Chargement terminé...." ;
 				wall.affichePhotos() ;

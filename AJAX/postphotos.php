@@ -1,6 +1,6 @@
 <?php
 require_once("../inc/centrale.php") ;
-extraction("galerie", "modeVerbeux") ;
+extraction("galerie", "auteur", "modeVerbeux") ;
 $url 	= '../photos/'.$galerie ;
 
 if (isset($_FILES['myfile'])) {
@@ -58,6 +58,18 @@ if (isset($_FILES['myfile'])) {
 					$s = $image->writeImage($url."/".$file."/miniatures/".$sFileName) ;
 					if (!$s) $json = '{"status":-6, "fichier":"'.$sFileName.'"}' ;
 					else $json = '{"status":1, "fichier":"'.$sFileName.'"}' ;
+					//suppression de l'image initiale
+					$t = unlink($url."/".$file."/".$sFileName) ;
+					//création d'un message
+					$m = new message() ;
+					$m->categorie = 1 ;
+					$m->auteur = $auteur ;
+					$a = new personne() ;
+					$a->get($m->auteur) ;
+					$m->date = date('Y-m-d H:i:s') ;
+					$m->texte = '<div>'.$a->prenom.' '.$a->nom.' vient de déposer une nouvelle photographie sur le site.</div><div><img src="../photos/'.$file.'/miniatures/'.$file2.'"></div>' ;
+					$m->save() ;
+					$m->aftertreat() ;
 				}
 			}
 		}
