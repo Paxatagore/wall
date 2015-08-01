@@ -12,7 +12,7 @@ $verbose = 0 ;	//par défaut. Une valeur supérieure renvoie en plus la requête
 
 function checkObjet($objet) {
 	global $verbose ;
-	if (!in_array($objet, ["message", "personne", "personne_temp", "pays"]) ) {
+	if (!in_array($objet, ["album", "photo", "message", "personne", "personne_temp", "pays", "lientp", "tag"]) ) {
 		if ($verbose == 1) die('{"status":"0", "erreur":"1", "message":"objet inexistant"}') ;
 		else die ('{"status":"0", "erreur":"1"}') ;
 	}

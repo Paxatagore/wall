@@ -53,7 +53,7 @@ wallAdmin = {
 			wallAdmin.getMessages(0, 30) ;			
 			wallAdmin.showSection(3) ;}) ;
 		$('menu4').observe("click", function() {wallAdmin.showSection(4) ;}) ;
-		$('info3').observe("click", function() {window.document.location="wall.html" ;}) ;
+		$('info3').observe("click", function() {window.document.location="wall.php" ;}) ;
 	},
 	
 	getUsers:function() {

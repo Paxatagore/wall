@@ -182,6 +182,7 @@ abstract class alpha {
 			}
 			$q .= "curdate(), '')" ;
 			//on envoie la requête ainsi composée
+			$this->query = $q ;
 			mysqldb::send($q) ;
 			//on détermine ainsi $this->num
 			//$this->num = mysqli_insert_id(mysqldb::$id) ;

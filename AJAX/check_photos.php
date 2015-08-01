@@ -1,4 +1,7 @@
 <?php
+$headerHTML = 1 ;
+require_once("../inc/centrale.php") ;
+
 $url 	= '../photos/' ;
 if (!is_dir($url)) {
 	mkdir($url) ;
@@ -21,10 +24,27 @@ while (($file = readdir($p)) !== false) {
 			mkdir($url."/".$file."/stockage") ;
 		}
 		$p2 = opendir($url."/".$file) ;
+		$a = new album() ;
+		$a->get("nom", $file) ;
+		if ($a->num == 0) {
+			$a->nom = $file ;
+			$a->createur = 1 ;
+			$a->description = "à préciser" ;
+			$a->save() ;		
+		}
 		while (($file2 = readdir($p2)) !== false) {
 			if (!is_dir($url."/".$file."/".$file2)) {
 				if ((substr(strtolower($file2), -3) == "jpg") || (substr(strtolower($file2), -3) == "png")) {
 					echo "Je dois traiter la photo $file2. " ;
+					//creation de la photo
+					$f = new photo() ;
+					$f->album = $a->num ;
+					$f->nom = $file2 ;
+					$f->legende = "à préciser" ;
+					$f->auteur = 1 ;
+					$f->note = 0 ;
+					$f->save() ;
+					//travail de la photo
 					$image = new Imagick($url."/".$file."/".$file2) ;
 					$orientation = $image->getImageOrientation() ; 
 					 switch($orientation) {
@@ -64,6 +84,27 @@ while (($file = readdir($p)) !== false) {
 					//suppression de l'image
 					$t = unlink($url."/".$file."/".$file2) ;
 					$image->destroy() ;
+				}
+			}
+			elseif ($file2 == "photos") {
+				$p3 = opendir($url."/".$file."/photos/") ;
+				while (($file3 = readdir($p3)) !== false) {
+					if (!is_dir($url."/".$file."/photos/".$file3)) {
+						if ((substr(strtolower($file3), -3) == "jpg") || (substr(strtolower($file3), -3) == "png")) {
+							$f = new photo() ;
+							$f->get("nom", $file3) ;
+							if ($f->num == 0) {
+								$f->auteur = 0 ;
+								$f->legende = "à préciser" ;
+								$f->nom = $file3 ;
+								$f->album = $a->num ;
+								$f->auteur = 1 ;
+								$f->note = 0 ;
+								$f->save() ;				
+								echo ("Ajout de l'image $file3 dans la base. ") ;
+							}
+						}	
+					}
 				}
 			}
 		}

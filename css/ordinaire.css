@@ -311,13 +311,9 @@ th {
 }
 
 #albumPhotographique {
-	position: fixed; 
 	background-color:#000000 ;
 	color:#ffffff;
-	top:0px;
-	left:0px;
 	width:100%;
-	height:100%;
 	display:none ;
 }
 
@@ -344,12 +340,37 @@ th {
 }
 
 #nomPhoto {
-	width:1200px;
+	width:200px;
 	margin-left: auto;
 	margin-right: auto;	
 	top:0px;
 	text-align:center;
-	font-size:large;
+	font-size:small;
+}
+
+.infoPhoto {
+	width:600px;
+	margin-left: auto;
+	margin-right: auto;	
+	text-align:center;
+	font-size:normal;
+}
+
+.cliquable {
+	cursor:Pointer ;
+}
+
+.tag {
+	color:#7F7F7F;
+}
+
+.tagactive {
+	color:#ffffff;
+	font-weight:bold;
+}
+
+#commandesPhotos {
+	display:none;
 }
 
 #closeAlbumBox{
@@ -397,7 +418,7 @@ th {
 	width:280px;
 }
 
-
+!
 /* généalogie */
 
 #arbre_genealogique {

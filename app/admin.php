@@ -1,9 +1,8 @@
 <?php
 require_once("../app/head.php") ;
 head("Administration du mur", ["walladmin"]) ;
-body() ;
-menu() ;
 ?>
+<body>
 <div id="mainConteneur">
 	<div id="authentifie">
 		<div id="menuhaut">
@@ -78,7 +77,7 @@ menu() ;
 	<div class="bottom">
 		<span class="link" id="info3">Revenir sur la page principale</span>
 	</div>	
-<?php
-bottom() ;
-die() ;
-?>
+
+</div>
+</body>
+</html>

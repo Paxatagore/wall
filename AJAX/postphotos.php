@@ -1,28 +1,30 @@
 <?php
 require_once("../inc/centrale.php") ;
-extraction("galerie", "auteur", "modeVerbeux") ;
-$url 	= '../photos/'.$galerie ;
+extraction("album", "auteur", "modeVerbeux") ;
+$a = new album() ;
+$a->get($album) ;
+$url 	= '../photos/'.$a->nom ;
 
 if (isset($_FILES['myfile'])) {
     $sFileName = $_FILES['myfile']['name'] ;
     $sFileType = $_FILES['myfile']['type'] ;
 	$sTemp = $_FILES['myfile']['tmp_name'] ;
-	if ($_FILES['myfile']['size'] > 1250000) {
+	if ($_FILES['myfile']['size'] > 7250000) {
 		$json = '{"status":-3, "taille":'.$_FILES['userfile']['size'].'"}' ;
 	}
 	else {
 		$t = move_uploaded_file($sTemp, $url."/".$sFileName) ;
 		if ($t) {
-			$p = opendir('../photos/'.$galerie.'/photos/') ;
+			$p = opendir($url.'/photos/') ;
 			$compteur = 0 ;
 			while (($file = readdir($p)) !== false) {
 				$nfile = substr($file, 5, 4) ;
 				if ($nfile > $compteur) $compteur = $nfile ;
 			}
 			$compteur++ ;
-			$image = new Imagick('../photos/'.$galerie.'/'.$sFileName) ;
+			$image = new Imagick($url.'/'.$sFileName) ;
 			$orientation = $image->getImageOrientation() ; 
-			 switch($orientation) {
+			switch($orientation) {
 				case imagick::ORIENTATION_BOTTOMRIGHT:
 					$image->rotateimage("#000", 180); // rotate 180 degrees
 				break;
@@ -39,14 +41,14 @@ if (isset($_FILES['myfile'])) {
 			$image->setImageOrientation(imagick::ORIENTATION_TOPLEFT); 
 
 			//a - sauvegarde de l'image principale dans le dossier de stockage photos
-			$s = $image->writeImage($url."/".$file."/stockage/".$sFileName) ;
+			$s = $image->writeImage($url."/stockage/".$sFileName) ;
 			if (!$s) $json = '{"status":-4, "fichier":"'.$sFileName.'"}' ;
 			else {
 				//b - réalisation d'une image de taille moyenne
 				$t = $image->thumbnailImage(0, 600) ;	
 				if (!$t) $json = '{"status":-5, "fichier":"'.$sFileName.'"}' ;
 				else {
-					$s = $image->writeImage($url."/".$file."/photos/".$sFileName) ;
+					$s = $image->writeImage($url."/photos/".$sFileName) ;
 					//c - réalisation d'une miniature
 					if($image->getImageHeight() <= $image->getImageWidth()) {
 						$t = $image->thumbnailImage(300, 0) ;	
@@ -55,21 +57,19 @@ if (isset($_FILES['myfile'])) {
 						$t = $image->thumbnailImage(0, 300) ;	
 					}
 					if (!$t) $json = '{"status":-5, "fichier":"'.$sFileName.'"}' ;
-					$s = $image->writeImage($url."/".$file."/miniatures/".$sFileName) ;
+					$s = $image->writeImage($url."/miniatures/".$sFileName) ;
 					if (!$s) $json = '{"status":-6, "fichier":"'.$sFileName.'"}' ;
-					else $json = '{"status":1, "fichier":"'.$sFileName.'"}' ;
-					//suppression de l'image initiale
-					$t = unlink($url."/".$file."/".$sFileName) ;
-					//création d'un message
-					$m = new message() ;
-					$m->categorie = 1 ;
-					$m->auteur = $auteur ;
-					$a = new personne() ;
-					$a->get($m->auteur) ;
-					$m->date = date('Y-m-d H:i:s') ;
-					$m->texte = '<div>'.$a->prenom.' '.$a->nom.' vient de déposer une nouvelle photographie sur le site.</div><div><img src="../photos/'.$file.'/miniatures/'.$file2.'"></div>' ;
-					$m->save() ;
-					$m->aftertreat() ;
+					else {
+						$p = new photo() ;
+						$p->nom = $sFileName ;
+						$p->album = $album ;
+						$p->legende = "à rédiger" ;
+						$p->note = 0 ;
+						$p->auteur = $auteur ;
+						$p->save() ;
+						$json = '{"status":1, "fichier":"'.$sFileName.'"}' ;					
+					}
+	
 				}
 			}
 		}

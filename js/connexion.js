@@ -6,9 +6,14 @@ var connexion = {
 		$('connexionboutton').observe("click", connexion.tryToAuthentify) ;
 		$('inscriptionbouton').observe("click", connexion.sinscrire) ;	//inscription		
 		if (localStorage.hasOwnProperty("personne" + parametres.suffixe)) {
-			console.log("Une personne est déjà connectée. Je la reprends.") ;
 			var p = JSON.parse(localStorage["personne"+parametres.suffixe]) ;
-			if (p.motdepasse != "") return connexion.tryToConnect(p) ;
+			if (p.motdepasse != "") {
+				console.log("Une personne est déjà connectée. Je la reprends.") ;
+				return connexion.tryToConnect(p) ;
+			}
+			else {
+				localStorage.removeItem("personne" + parametres.suffixe) ;			
+			}
 		}
 		return true ;
 	},
@@ -54,7 +59,7 @@ var connexion = {
 						//youpi, on est connecté !
 						reponse.personne.motdepasse = $('connexion_password').value ;
 						localStorage.setItem("personne"+parametres.suffixe, JSON.stringify(reponse.personne)) ;
-						window.document.location = "wall.html" ;
+						window.document.location = "wall.php" ;
 						return true ;
 					}
 				}
