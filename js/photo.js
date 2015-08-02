@@ -124,6 +124,8 @@ photos = {
 	afficheUnePhoto:function(album, numero) {
 		console.log("Lancement de afficheUnePhoto.") ;
 		/* cette fonction gère l'affichage d'une photo dans l'album, càd en grand */
+		photos.chargeCommentaires(album, numero) ;
+		$('envoiCommentaireBouton').stopObserving() ;
 		$('photoPrec').stopObserving() ;	// on enlève les observeurs pour éviter qu'ils ne s'accumulent.
 		$('photoSuiv').stopObserving() ;
 		$('legendePhoto').stopObserving() ;
@@ -144,7 +146,8 @@ photos = {
 		var nomPhoto = photos.album[album].photos[numero].nom ;		
 		$('laPhoto').src = "../photos/" + photos.album[album].album.nom + "/photos/" + nomPhoto ;
 		//nomPhoto = nomPhoto.replace(/.(jpg|png)/i, "") ;
-		$('nomPhoto').innerHTML = '(' + nomPhoto + ')' ;
+		//$('nomPhoto').innerHTML = '(' + nomPhoto + ')' ;
+		$('nomPhoto').innerHTML = nomPhoto ;
 		$('legendePhoto').innerHTML = photos.album[album].photos[numero].legende ;
 		$('legendePhoto').observe("click", function () { photos.modifieLegende(album, numero) ; }) ;
 		$('photoAuteur').innerHTML = photos.getAuteur(photos.album[album].photos[numero].auteur) ;
@@ -169,16 +172,16 @@ photos = {
 			}
 		}
 		if (photos.album[album].photos[numero].auteur == wallApp.personneConnectee || photos.album[album].album.createur == wallApp.personneConnectee || wallApp.personneConnecteeAdmin == 1) {
-			$('commandesPhotos').style.display = "block" ;
+			$('commandesPhotos').style.display = "inline" ;
 			$('commandesPhotos').observe("click", function() {photos.supprimePhoto(photos.album[album].photos[numero].num) ;}) ;
 		}
 		else $('commandesPhotos').style.display = "none" ;
-		$('photoPrec').innerHTML = "Photo précédente --- " ;
-		$('photoSuiv').innerHTML = " --- Photo suivante" ;
+		$('photoPrec').innerHTML = "Photo précédente | " ;
+		$('photoSuiv').innerHTML = " | Photo suivante" ;
 		//on regarde quel est le numéro précédent et, s'il existe, on règle l'observer sur le mapping de l'image côté gauche.
 		var prec = numero - 1 ;
 		if (prec >= 0) $('photoPrec').observe("click", function() { 
-				$('photoPrec').stopObserving() ;	//on bloque aussitôt les observeurs pour éviter une double manoeuvre
+				$('photoPrec').stopObserving() ;	//on bloque aussitôt les observeurs pour éviter une double manœuvre
 				$('photoSuiv').stopObserving() ;
 				photos.afficheUnePhoto(album, prec) ; 	//on affiche la photo précédente
 			}) ;
@@ -197,7 +200,60 @@ photos = {
 		else {
 			$('photoSuiv').innerHTML = "" ;
 		}
+		$('envoiCommentaireBouton').observe("click", function (e) { 
+			e.stop() ; 
+			photos.ajouteCommentaire(album, numero) ; }) ;
 		console.log("Fin de afficheUnePhoto.") ;
+		return true ;
+	},
+	
+	chargeCommentaires:function(album, numero) {
+		$('commentairesChargementEnCours').style.display = "block" ;
+		new Ajax.Request(localisation + "REST/index.php", {
+			"parameters":"objet=commentaire&photo=" + photos.album[album].photos[numero].num,
+			"method":"GET",
+			"onSuccess":function(requester) {
+				console.log(requester.responseJSON) ; 
+				$('commentairesChargementEnCours').style.display = "none" ;		
+				var commentaires = requester.responseJSON.commentaire ;
+				if (commentaires.length == 0) {
+					$('commentairesPhotos').innerHTML = "Aucun commentaire n'a été déposé pour cette photo." ;
+				}
+				else {
+					var string = ['<div class="commentairesAccroches">' + commentaires.length + ' commentaire(s) : </div>'] ;
+					for (var i = commentaires.length-1 ; i > -1 ; i--) {
+						string.push(photos.traiteCommentaire(commentaires[i])) ;
+					}
+					$('commentairesPhotos').innerHTML = string.join("") ;
+				}
+			}
+		})			;
+		return true ;
+	},
+	
+	traiteCommentaire:function(commentaire) {
+		if (commentaire.creation) {
+			var d = commentaire.creation.split("-") ;
+			return '<div class="unCommentaire">Le ' + d[2] + "/" + d[1] + "/" + d[0] + ', ' + commentaire.texte + '</div>' ;
+		}
+		else {
+			return '<div class="unCommentaire">Aujourd\'hui, ' + commentaire.texte + '</div>' ;
+		}
+	},
+		
+	ajouteCommentaire:function(album, numero) {
+		var texte = wallApp.personne + " : " + $('commentaire_text').value.trim() ;
+		
+		new Ajax.Request(localisation + "REST/index.php", {
+			"postBody":"objet=commentaire&&num=0&photo=" + photos.album[album].photos[numero].num + '&texte=' + texte,
+			"method":"POST",
+			"onSuccess":function(requester) {
+				console.log(requester.responseJSON) ; 				
+				$('commentairesPhotos').insert({"top":photos.traiteCommentaire(requester.responseJSON.commentaire)}) ;
+				$('commentaire_text').value = "" ;
+				return true ;
+			}
+		}) ;
 		return true ;
 	},
 	

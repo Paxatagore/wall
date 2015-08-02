@@ -12,6 +12,7 @@ wallApp = {
 			console.log("Une personne est déjà connectée. Je la reprends.") ;
 			var personne = JSON.parse(localStorage["personne" + parametres.suffixe]) ;
 			wallApp.personneConnectee	= personne.num ; //on est connecté
+			wallApp.personne			= '<a href="mailto:' + personne.mail + '" class="cliquable">' + personne.prenom + ' ' + personne.nom + '</a>' ; 
 			wallApp.personneConnecteeAdmin	= personne.admin ;
 			if (personne.admin == 1) $('menuAdmin').style.display = "inline" ;	//la personne est un administrateur => on affiche le lien d'administration
 			$('authentifie').style.display 			= "block" ;			

@@ -315,6 +315,7 @@ th {
 	color:#ffffff;
 	width:100%;
 	display:none ;
+	text-align:center;
 }
 
 #photographie {
@@ -331,6 +332,12 @@ th {
 	margin-right: auto;	
 }
 
+#legendePhoto {
+	font-size:large;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
 #photoPrec {
 	cursor:Pointer;
 }
@@ -339,21 +346,29 @@ th {
  	cursor:Pointer;
 }
 
-#nomPhoto {
+#photoAuteur {
+	color:#FFFFFF;
+}
+/* #nomPhoto {
 	width:200px;
 	margin-left: auto;
 	margin-right: auto;	
 	top:0px;
 	text-align:center;
 	font-size:small;
+} */
+
+#nomPhoto {
+	text-decoration:underline;
+	color:#FF9900 ;
 }
 
 .infoPhoto {
-	width:600px;
+	width:1000px;
 	margin-left: auto;
 	margin-right: auto;	
 	text-align:center;
-	font-size:normal;
+	font-size:small;
 }
 
 .cliquable {
@@ -378,6 +393,7 @@ th {
 	margin-left: auto;
 	margin-right: auto;	
 	text-align:center;
+	font-size:small;
 }
 
 /* uploader de photos */
@@ -418,7 +434,46 @@ th {
 	width:280px;
 }
 
-!
+/* commentaires */
+
+#commentaires {
+	width:1000px ;
+	margin-left:auto ;
+	margin-right:auto;
+	padding-top:20px ;
+	padding-bottom:20px ;
+}
+
+#commentairesChargementEnCours {
+	font:small;
+	text-align:center ;
+}
+
+#commentairesPhotos {
+	text-align:left;
+	font:small ;
+}
+
+.unCommentaire {
+	padding-top:10px ;
+	margin-top:10px ;
+	/* border-style:dotted ;
+	border-width: 1px; */
+	text-align:left;
+	font:small;
+}
+
+.unCommentaire > a {
+	color:#FFFFFF;
+}
+
+
+.commentairesAccroches {
+	font-weight:bold;
+	text-align:left;
+}
+
+
 /* généalogie */
 
 #arbre_genealogique {
