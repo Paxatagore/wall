@@ -310,17 +310,23 @@ photos = {
 	},
 	
 	supprimePhoto:function(num) {
-		new Ajax.Request(localisation + "REST/index.php", {
-			"postBody":"objet=photo&command=delete&num=" + num,
-			"method":"POST",
-			"onSuccess":function(requester) {
-				console.log(requester.responseJSON) ;
-				photos.fermeAlbum() ;				
-				photos.affichePhotos() ;
-				alert("Cette photo a bien été supprimée.") ;
-				return true ;
-			}
-		}) ;
+		var r = confirm("êtes vous certain de vouloir supprimer cette photo ? ");
+		if (r == true) {
+		   new Ajax.Request(localisation + "REST/index.php", {
+					"postBody":"objet=photo&command=delete&num=" + num,
+					"method":"POST",
+					"onSuccess":function(requester) {
+						console.log(requester.responseJSON) ;
+						photos.fermeAlbum() ;				
+						photos.affichePhotos() ;
+						alert("Cette photo a bien été supprimée.") ;
+						return true ;
+					}
+			}) ;
+		} 
+		else {
+			return false ;
+		} 
 	},
 	
 	fermeAlbum : function() {
