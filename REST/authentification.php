@@ -4,11 +4,6 @@ require_once("../inc/centrale.php") ;
 extraction("nom", "prenom", "password", "modeVerbeux") ;
 $p = new personne ;
 
-//$req = mysqldb::$id->prepare("SELECT * FROM personne WHERE LOWER(nom) = :nom' AND LOWER(prenom) = :prenom") ;
-//$req->bindParam(':nom', $nom, PDO::PARAM_STR) ;
-//$req->bindParam(':prenom', $prenom, PDO::PARAM_STR) ;
-//$req->execute() ;
-
 $prenom = str_replace("\'", "%", $prenom) ;
 $prenom = str_replace("'", "%", $prenom) ;
 $prenom = str_replace("-", "%", $prenom) ;
