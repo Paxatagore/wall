@@ -5,11 +5,11 @@ head("Administration du mur", ["walladmin"]) ;
 <body>
 <div id="mainConteneur">
 	<div id="authentifie">
-		<div id="menuhaut">
-			<div class="menu" id="menu1">Demandes d'inscription (<span id="nDemandesInscription"></span>)</div>
-			<div class="menu" id="menu2">Utilisateurs (<span id="nUsers"></span>)</div>	
-			<div class="menu" id="menu3">Messages</div>
-			<div class="menu" id="menu4">Paramètres généraux</div>
+		<div id="mainMenu">
+			<li class="menu" id="menu1"><a>Demandes d'inscription (<span id="nDemandesInscription"></span>)</a></li>
+			<li class="menu" id="menu2"><a>Utilisateurs (<span id="nUsers"></span>)</a></li>	
+			<li class="menu" id="menu3"><a>Messages</a></li>
+			<li class="menu" id="menu4"><a>Paramètres généraux</a></li>
 		</div>
 	</div>
 	<h1>Administration du mur</h1>
