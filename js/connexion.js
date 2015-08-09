@@ -6,7 +6,7 @@ var connexion = {
 		$('connexionboutton').observe("click", connexion.tryToAuthentify) ;
 		$('inscriptionbouton').observe("click", connexion.sinscrire) ;	//inscription		
 		if (localStorage.hasOwnProperty("personne" + parametres.suffixe)) {
-			var p = JSON.parse(localStorage["personne"+parametres.suffixe]) ;
+			var p = JSON.parse(localStorage["personne" + parametres.suffixe]) ;
 			if (p.motdepasse != "") {
 				console.log("Une personne est déjà connectée. Je la reprends.") ;
 				return connexion.tryToConnect(p) ;
