@@ -27,7 +27,8 @@ function traitement($level = 1, $codeSQL="1 DAY") {
 	
 	// Création du header de l'e-mail
 	$header = 'From: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
-	$header.= 'Reply-to: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
+	//$header.= 'Reply-to: "Mur de Brier" <as@steppe.fr>'.$passage_ligne ;
+	$header.= 'Reply-to: <>'.$passage_ligne ;
 	$header.= 'MIME-Version: 1.0'.$passage_ligne ;
 	$header.= "Bcc: ".$destinataires.$passage_ligne ;
 	$header.= "X-Mailer: PHP/".phpversion().$passage_ligne ;
