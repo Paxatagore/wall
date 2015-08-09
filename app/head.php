@@ -43,7 +43,7 @@ function menu() {
 		<div class="menu" id="menuMur" title="Le mur"><a href="wall.php" target="_self">Le mur</a></div>
 		<div class="menu" id="menuFamille" title="La famille d'Edouard et Gabrielle"><a href="genealogie.php" target="_self">Famille</a></div>
 		<div class="menu" id="menuPhoto" title="Galeries photos"><a href="photo.php" target="_self">Photos</a></div>
-		<div class="menu" id="menuReunion" title="Réunion de famille"><a href="reunion2015.php" target="_self">Réunion du 11-12 juillet 2015</a></div>
+		<div class="menu" id="menuReunion" title="Réunion de famille"><a href="cousinade2015.php" target="_self">Cousinade 2015</a></div>
 		<div class="menu" id="linkMonCompte"><a href="compte.php" target="_self">Mon compte</a></div>
 	</div>
 	<?php

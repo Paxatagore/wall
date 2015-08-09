@@ -4,7 +4,17 @@ head("Edouard et Gabrielle", []) ;
 body() ;
 menu() ;
 ?>
-<h2>Réunion de famille</h2>
+<h2>Cousinade 2015 au Petit Roc</h2>
+<h3>Les powerpoint</h3>
+Retrouvez ici les deux présentations qui ont été diffusées samedi et dimanche :
+
+<h4>Le powerpoint d'Yves</h4>
+<div class="information"><a href="../pdf/Tousaupetitroc.pdf">Téléchargez le document PDF</a>.</div>
+<object id="arbre_genealogique" height="900" data="../pdf/Tousaupetitroc.pdf" type="application/pdf" title="Les photos de famille"></object> 
+<h4>Le quiz de Guillaume</h4>
+<div class="information">Guillaume a publié son quizz <a href="https://prezi.com/evezmxyy8-dt/le-quizz-pour-brier-en-famille/#">à cette adresse internet</a>.</div>
+<iframe src="https://prezi.com/embed/evezmxyy8-dt/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWklacTNtbFpjdVRkUlFZdXJPeGFJOVBwK2tGOHVqMWhvVUowQWgveml2WGEweFBYc0JJN05VUXd0SXBJaHBSZE91ME4rbWJvYml6V2xjVVJKNjQ5Q3QyTHdpNy9ORlpuZVowbjYzbDk3YUc1Zz09&amp;landing_sign=ZTAjuFFnv3Wmf5C4lxRiuV_0LUICLQb2EBOitS-91RQ#" allowfullscreen="" mozallowfullscreen="" webkitallowfullscreen="" id="iframe_container" frameborder="0" height="800" width="1150"></iframe>
+
 <h3>Les participants</h3>
 <div class="information">Bonjour à tous ! Pour répondre à la demande, j’ai trouvé un moyen, certes un peu artisanal, permettant à chacun d’indiquer, s’il le souhaite, les dates auxquelles il sera présent en Dordogne en juillet prochain. <a href="http://doodle.com/bwh3g3m52v73hp85">Il vous suffit de cliquer ici et de cocher les dates adéquates</a>.</div>
 <div class="information">Vous pouvez également <a href="http://www.steppe.fr/deBrier/wall/app/gmap.html">consulter une carte du monde</a> sur laquelle figurent tous les participants à la réunion de famille.</div>
@@ -52,6 +62,7 @@ menu() ;
 		<div class="fhenri l2">Charles et Stéphanie de Brier, Alix</div>
 	
 <div class="information"></div>
+
 <h3>Programme</h3>
 
 <h4>Samedi 11 juillet 2015</h4>
