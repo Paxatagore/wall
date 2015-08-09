@@ -149,7 +149,6 @@ photos = {
 		//$('nomPhoto').innerHTML = '(' + nomPhoto + ')' ;
 		$('nomPhoto').innerHTML = nomPhoto ;
 		$('legendePhoto').innerHTML = photos.album[album].photos[numero].legende ;
-		$('legendePhoto').observe("click", function () { photos.modifieLegende(album, numero) ; }) ;
 		$('photoAuteur').innerHTML = photos.getAuteur(photos.album[album].photos[numero].auteur) ;
 		
 		//tags
@@ -172,6 +171,8 @@ photos = {
 			}
 		}
 		if (photos.album[album].photos[numero].auteur == wallApp.personneConnectee || photos.album[album].album.createur == wallApp.personneConnectee || wallApp.personneConnecteeAdmin == 1) {
+			//créateur de la photo, administrateur du site ou de l'album
+			$('legendePhoto').observe("click", function () { photos.modifieLegende(album, numero) ; }) ;
 			$('commandesPhotos').style.display = "inline" ;
 			$('commandesPhotos').observe("click", function() {photos.supprimePhoto(photos.album[album].photos[numero].num) ;}) ;
 		}
