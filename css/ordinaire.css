@@ -52,7 +52,7 @@ body {
 
 h1 {
 	color:#2f892a;
-	padding-top:35px;
+	padding-top:55px;
 	border-bottom:1px dotted;
 	font-size:xx-large;
 }
@@ -104,27 +104,125 @@ input {
 
 /*menu haut */
 
-#menuhaut {
-	position:absolute;
-	top:0px ;
-	right:0px ;
-}
-
-.menu {
-	display:inline;
-	margin:20px ;
-	font:large;
-	color:#2B7A22;
-	cursor:Pointer;
-}
 
 .admin {
 	display:none ;
 }
-.menu > a {
-	text-decoration:none ;
-	color:#2B7A22 ;
+
+
+/*menu */
+
+#mainMenu, #mainMenu nav /* Liste */    
+{
+	padding : 0; /* pas de marge intérieure */
+	margin : 0; /* ni extérieure */
+	list-style : none; /* on supprime le style par défaut de la liste */
+	line-height : 25px;  /*on définit une hauteur pour chaque élément */
+	text-align : center; /* on centre le texte qui se trouve dans la liste */
+	background:#FFFFFF;
+	color:#2B7A22;
 }
+ 
+#mainMenu /* Ensemble du menu */ {
+	height:25px;
+	position:absolute;
+	top:0px ;
+	right:0px ;
+	color:#2B7A22;
+	cursor:Pointer;
+	margin-bottom:50px;
+}
+
+#mainMenu a /* Contenu des listes */
+{
+	display : block; /* on change le type d'élément, les liens deviennent des balises de type block */
+	padding : 0; /* aucune marge intérieure */
+	text-decoration : none; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
+	width : 200px; /* largeur */
+	color:#2B7A22;
+}
+
+#mainMenu a.menuItemGrise {
+	color:#B0CC99;
+}
+
+#mainMenu a.menuItemGrise :hover{
+	background-color:#375D81;
+	color:#B0CC99;
+}
+
+#mainMenu a:hover /* Lorsque la souris passe sur un des liens */   
+{
+	background-color:#183152;
+	color:#ffffff;
+}
+
+#mainMenu li /* Éléments des listes */     
+{ 
+	float : left; 
+	/* pour IE qui ne reconnaît pas "transparent" */
+	border-right : 1px solid #fff; /* on met une bordure blanche à droite de chaque élément */
+}
+ 
+/* IE ne reconnaissant pas le sélecteur ">" */
+html>body #mainMenu li
+{
+	border-right: 1px solid transparent ; /* on met une bordure transparente à droite de chaque élément */
+}
+ 
+#mainMenu li nav /* Sous-listes */
+{ 
+	position: absolute; /* Position absolue */
+	width: 144px; /* Largeur des sous-listes */
+	left: -999em; /* Hop, on envoie loin du champ de vision */
+}
+
+#mainMenu li:hover nav nav, #mainMenu nav.sfhover nav nav /* Sous-sous-listes lorsque la souris passe sur un élément de liste */
+{
+	left: -999em; /* On expédie les sous-sous-listes hors du champ de vision */
+}
+ 
+#mainMenu li:hover nav, #mainMenu nav nav:hover nav, #mainMenu li.sfhover nav, #mainMenu nav nav.sfhover nav  /* Sous-listes lorsque la souris passe sur un élément de liste ET sous-sous-lites lorsque la souris passe sur un élément de sous-liste */
+{
+	left: auto; /* Repositionnement normal */
+	min-height: 0; /* Corrige un bug sous IE */
+}
+ 
+#mainMenu li nav li /* Eléments de sous-listes */
+{
+	/* pour ie qui ne reconnaît pas "transparent" (comme précédemment) */
+	border-top : 1px solid #fff; /* on met une bordure blanche en haut de chaque élément d'une sous-liste */
+}
+ 
+/* IE ne reconnaissant pas le sélecteur ">" */
+html>body #mainMenu li nav li                
+{
+	border-top : 1px solid transparent; /* on met une bordure transparente en haut de chaque élément */
+}
+ 
+#mainMenu li nav nav 
+{
+	margin    : -22px 0 0 144px ; /* On décale les sous-sous-listes pour qu'elles ne soient pas au dessus des sous-listes */
+	/* pour IE qui ne reconnaît pas "transparent" (comme précédemment) */
+	border-left     : 1px solid #fff ; /* Petite bordure à gauche pour ne pas coller ... */     
+}
+ 
+/* IE ne reconnaissant pas le sélecteur ">" ... je me répète ;-) */
+html>body #mainMenu li nav nav                
+{
+	border-left     : 1px solid transparent ; /* on met une bordure transparente sur la gauche de chaque élément */
+}
+
+
+.choixSelectionne {
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color:#EFECCA;
+	border-bottom-style:dotted;
+	border-bottom-width:1px;
+	border-bottom-color:red;
+}
+
 
 /* champs à masquer ou montrer au début */
 
