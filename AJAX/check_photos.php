@@ -41,7 +41,7 @@ while (($file = readdir($p)) !== false) {
 					$f->album = $a->num ;
 					$f->nom = $file2 ;
 					$f->legende = "à préciser" ;
-					$f->auteur = 1 ;
+					$f->auteur = 44 ;
 					$f->note = 0 ;
 					$f->save() ;
 					//travail de la photo
@@ -98,7 +98,7 @@ while (($file = readdir($p)) !== false) {
 								$f->legende = "à préciser" ;
 								$f->nom = $file3 ;
 								$f->album = $a->num ;
-								$f->auteur = 1 ;
+								$f->auteur = 44 ;
 								$f->note = 0 ;
 								$f->save() ;				
 								echo ("Ajout de l'image $file3 dans la base. ") ;

@@ -4,7 +4,7 @@ wallAdmin = {
 	
 	nDemandesInscription:0,
 	nUsers:0,
-	fnl:["aucune", "quotidienne", "hebdomadaire", "mensuel", "trimestriel", "annuel"],
+	fnl:["aucune", "quotidienne", "hebdomadaire", "mensuel", "trimestriel", "annuel", "immédiate"],
 
 	initialise:function() {
 		$('mainConteneur').style["max-width"] = "2000px" ;
